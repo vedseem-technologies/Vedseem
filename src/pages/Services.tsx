@@ -63,16 +63,17 @@ export default function Services() {
           {services.map((service, index) => (
             <div
               key={index}
-              className="group relative bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border border-blue-500/20 rounded-2xl p-8 hover:border-blue-500/60 transition-all duration-300 hover:transform hover:scale-105 overflow-hidden"
+              className="group relative bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border border-blue-500/20 rounded-2xl p-8 hover:border-blue-500/60 transition-all duration-300 hover:transform hover:scale-105 overflow-hidden hover:shadow-lg hover:shadow-blue-500/20"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/10 group-hover:to-cyan-500/10 transition-all duration-300"></div>
 
               <div className="relative z-10">
-                <div className="text-blue-400 mb-6 group-hover:text-cyan-400 transition-colors duration-300">
+                <div className="text-blue-400 mb-6 group-hover:text-cyan-400 transition-colors duration-300 group-hover:scale-110 transform">
                   {getIcon(service.icon)}
                 </div>
                 <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
-                <p className="text-gray-300">{service.description}</p>
+                <p className="text-gray-300 leading-relaxed">{service.description}</p>
 
                 <div className="mt-6 inline-flex items-center text-blue-400 font-medium group-hover:text-cyan-400 transition-colors duration-300">
                   Learn More
@@ -95,13 +96,35 @@ export default function Services() {
           ))}
         </div>
 
+        {/* Process Section */}
+        <div className="mt-20 mb-20">
+          <h2 className="text-4xl font-bold text-center mb-12">Our Process</h2>
+          <div className="grid md:grid-cols-4 gap-6">
+            {[
+              { step: '01', title: 'Discovery', desc: 'Understanding your needs and goals' },
+              { step: '02', title: 'Planning', desc: 'Designing the perfect solution' },
+              { step: '03', title: 'Development', desc: 'Building with precision and care' },
+              { step: '04', title: 'Launch', desc: 'Deploying and supporting your success' },
+            ].map((process, index) => (
+              <div
+                key={index}
+                className="bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border border-blue-500/20 rounded-xl p-6 text-center hover:border-blue-500/60 transition-all duration-300 hover:transform hover:scale-105"
+              >
+                <div className="text-4xl font-bold text-blue-400 mb-3">{process.step}</div>
+                <h3 className="text-xl font-bold mb-2">{process.title}</h3>
+                <p className="text-gray-300 text-sm">{process.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="mt-20 text-center">
-          <div className="inline-block bg-gradient-to-br from-blue-900/40 to-cyan-900/40 border border-blue-500/20 rounded-2xl p-12">
+          <div className="inline-block bg-gradient-to-br from-blue-900/40 to-cyan-900/40 border border-blue-500/20 rounded-2xl p-12 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300">
             <h2 className="text-3xl font-bold mb-4">Need a Custom Solution?</h2>
             <p className="text-gray-300 mb-6 max-w-2xl">
               We specialize in creating tailored solutions that perfectly fit your unique business requirements.
             </p>
-            <button className="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300">
+            <button className="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 hover:transform hover:scale-105">
               Get in Touch
             </button>
           </div>

@@ -40,7 +40,7 @@ export default function Contact() {
 
         <div className="grid lg:grid-cols-2 gap-12">
           <div>
-            <div className="bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border border-blue-500/20 rounded-2xl p-8 mb-8">
+            <div className="bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border border-blue-500/20 rounded-2xl p-8 mb-8 hover:border-blue-500/60 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
               <h2 className="text-3xl font-bold mb-6">Contact Information</h2>
 
               <div className="space-y-6">
@@ -105,7 +105,7 @@ export default function Contact() {
           </div>
 
           <div>
-            <div className="bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border border-blue-500/20 rounded-2xl p-8">
+            <div className="bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border border-blue-500/20 rounded-2xl p-8 hover:border-blue-500/60 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
               <h2 className="text-3xl font-bold mb-6">Send us a Message</h2>
 
               {submitted ? (

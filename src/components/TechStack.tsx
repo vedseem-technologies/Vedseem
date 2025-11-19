@@ -32,9 +32,10 @@ export default function TechStack() {
           {technologies.map((tech, index) => (
             <div
               key={index}
-              className="group bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border border-blue-500/20 rounded-xl p-6 hover:border-blue-500/60 transition-all duration-300 hover:transform hover:scale-110 flex flex-col items-center justify-center"
+              className="group bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border border-blue-500/20 rounded-xl p-6 hover:border-blue-500/60 transition-all duration-300 hover:transform hover:scale-110 hover:shadow-lg hover:shadow-blue-500/20 flex flex-col items-center justify-center animate-fade-in"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="text-5xl mb-3 group-hover:scale-125 transition-transform duration-300">
+              <div className="text-5xl mb-3 group-hover:scale-125 transition-transform duration-300 group-hover:rotate-12">
                 {tech.icon}
               </div>
               <span className="text-white font-medium text-center">{tech.name}</span>

@@ -1,5 +1,6 @@
 import { ExternalLink } from 'lucide-react';
 import type { Project } from '../types';
+import AnimatedProjects from '../components/AnimatedProjects';
 
 export default function Projects() {
   const projects: Project[] = [
@@ -45,17 +46,40 @@ export default function Projects() {
       tags: ['NLP', 'TensorFlow', 'FastAPI'],
       caseStudyLink: '#',
     },
+    {
+      title: 'Blockchain Wallet',
+      description: 'Secure cryptocurrency wallet with multi-chain support and DeFi integration.',
+      image: 'https://images.pexels.com/photos/6801874/pexels-photo-6801874.jpeg?auto=compress&cs=tinysrgb&w=800',
+      tags: ['Web3', 'Solidity', 'Ethereum'],
+      caseStudyLink: '#',
+    },
+    {
+      title: 'Social Media Analytics',
+      description: 'Advanced analytics platform for tracking social media performance and engagement.',
+      image: 'https://images.pexels.com/photos/590570/pexels-photo-590570.jpeg?auto=compress&cs=tinysrgb&w=800',
+      tags: ['Python', 'Data Science', 'API Integration'],
+      caseStudyLink: '#',
+    },
+    {
+      title: 'Video Streaming Platform',
+      description: 'High-performance video streaming service with adaptive bitrate and global CDN.',
+      image: 'https://images.pexels.com/photos/3945317/pexels-photo-3945317.jpeg?auto=compress&cs=tinysrgb&w=800',
+      tags: ['Video.js', 'CDN', 'AWS'],
+      caseStudyLink: '#',
+    },
   ];
 
   return (
     <div className="min-h-screen bg-black text-white pt-20">
+      <AnimatedProjects />
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center mb-20">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Projects</span>
-          </h1>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            All <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Projects</span>
+          </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Explore our portfolio of successful projects that showcase our expertise and commitment to excellence.
+            Browse through our complete portfolio of innovative solutions and successful implementations.
           </p>
         </div>
 
@@ -63,7 +87,7 @@ export default function Projects() {
           {projects.map((project, index) => (
             <div
               key={index}
-              className="group relative bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border border-blue-500/20 rounded-2xl overflow-hidden hover:border-blue-500/60 transition-all duration-300"
+              className="group relative bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border border-blue-500/20 rounded-2xl overflow-hidden hover:border-blue-500/60 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20"
             >
               <div className="relative overflow-hidden h-64">
                 <img

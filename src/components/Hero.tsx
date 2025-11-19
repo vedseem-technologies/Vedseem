@@ -16,23 +16,23 @@ export default function Hero({ onNavigate }: HeroProps) {
           <span className="text-sm text-blue-400 font-medium">Future-Ready IT Solutions</span>
         </div>
 
-        <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+        <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight animate-fade-in">
           Transforming Ideas Into
           <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 animate-shimmer">
             Future-Ready Solutions
           </span>
         </h1>
 
-        <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
+        <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
           Vedseem delivers cutting-edge IT services, innovative software development, and strategic
           technology consultation to help your business thrive in the digital age.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
           <button
             onClick={() => onNavigate('services')}
-            className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 flex items-center gap-2"
+            className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 flex items-center gap-2 hover:transform hover:scale-105"
           >
             Explore Services
             <ArrowRight
@@ -43,7 +43,7 @@ export default function Hero({ onNavigate }: HeroProps) {
 
           <button
             onClick={() => onNavigate('contact')}
-            className="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/20 text-white font-semibold rounded-lg hover:bg-white/10 transition-all duration-300"
+            className="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/20 text-white font-semibold rounded-lg hover:bg-white/10 transition-all duration-300 hover:transform hover:scale-105"
           >
             Contact Us
           </button>

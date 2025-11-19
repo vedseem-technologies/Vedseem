@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import type { Testimonial } from '../types';
 
 export default function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const animationFrameRef = useRef<number>();
 
   const testimonials: Testimonial[] = [
     {
@@ -31,16 +33,47 @@ export default function Testimonials() {
 
   const nextTestimonial = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    setProgress(0);
   };
 
   const prevTestimonial = () => {
     setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setProgress(0);
   };
 
   useEffect(() => {
-    const interval = setInterval(nextTestimonial, 5000);
-    return () => clearInterval(interval);
-  }, []);
+    // Cancel existing animation
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+    }
+
+    // Reset progress when testimonial changes
+    setProgress(0);
+
+    const duration = 5000; // 5 seconds
+    const startTime = Date.now();
+
+    const updateProgress = () => {
+      const elapsed = Date.now() - startTime;
+      const newProgress = Math.min((elapsed / duration) * 100, 100);
+      setProgress(newProgress);
+
+      if (newProgress < 100) {
+        animationFrameRef.current = requestAnimationFrame(updateProgress);
+      } else {
+        nextTestimonial();
+      }
+    };
+
+    animationFrameRef.current = requestAnimationFrame(updateProgress);
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentIndex]);
 
   return (
     <section className="bg-black py-20">
@@ -55,7 +88,17 @@ export default function Testimonials() {
         </div>
 
         <div className="relative">
-          <div className="bg-gradient-to-br from-blue-900/40 to-cyan-900/40 border border-blue-500/20 rounded-2xl p-8 md:p-12">
+          <div className="bg-gradient-to-br from-blue-900/40 to-cyan-900/40 border border-blue-500/20 rounded-2xl p-8 md:p-12 overflow-hidden">
+            {/* Progress Bar */}
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-blue-500/20 z-20">
+              <div
+                className="h-full bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-500 relative overflow-hidden"
+                style={{ width: `${progress}%`, transition: 'none' }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
+              </div>
+            </div>
+
             <Quote className="text-blue-400 mb-6" size={48} />
 
             <p className="text-xl text-white mb-8 leading-relaxed">
@@ -79,14 +122,14 @@ export default function Testimonials() {
 
           <button
             onClick={prevTestimonial}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition-colors"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition-colors z-10"
           >
             <ChevronLeft size={24} />
           </button>
 
           <button
             onClick={nextTestimonial}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition-colors"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition-colors z-10"
           >
             <ChevronRight size={24} />
           </button>
@@ -95,9 +138,12 @@ export default function Testimonials() {
             {testimonials.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentIndex ? 'bg-blue-500 w-8' : 'bg-blue-500/30'
+                onClick={() => {
+                  setCurrentIndex(index);
+                  setProgress(0);
+                }}
+                className={`h-3 rounded-full transition-all duration-300 ${
+                  index === currentIndex ? 'bg-blue-500 w-8' : 'bg-blue-500/30 w-3'
                 }`}
               />
             ))}

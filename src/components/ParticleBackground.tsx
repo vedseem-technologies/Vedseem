@@ -2,6 +2,15 @@ import { useEffect, useRef } from 'react';
 
 export default function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animationFrameRef = useRef<number>();
+  const particlesRef = useRef<Array<{
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    size: number;
+  }>>([]);
+  const isInitializedRef = useRef(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -10,32 +19,30 @@ export default function ParticleBackground() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    // Only initialize particles once
+    if (!isInitializedRef.current) {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
 
-    const particles: Array<{
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      size: number;
-    }> = [];
-
-    for (let i = 0; i < 100; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        size: Math.random() * 2 + 1,
-      });
+      for (let i = 0; i < 100; i++) {
+        particlesRef.current.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          size: Math.random() * 2 + 1,
+        });
+      }
+      isInitializedRef.current = true;
     }
 
     const animate = () => {
+      if (!canvas || !ctx) return;
+      
       ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      particles.forEach((particle) => {
+      particlesRef.current.forEach((particle) => {
         particle.x += particle.vx;
         particle.y += particle.vy;
 
@@ -48,8 +55,8 @@ export default function ParticleBackground() {
         ctx.fill();
       });
 
-      particles.forEach((p1, i) => {
-        particles.slice(i + 1).forEach((p2) => {
+      particlesRef.current.forEach((p1, i) => {
+        particlesRef.current.slice(i + 1).forEach((p2) => {
           const dx = p1.x - p2.x;
           const dy = p1.y - p2.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
@@ -65,19 +72,26 @@ export default function ParticleBackground() {
         });
       });
 
-      requestAnimationFrame(animate);
+      animationFrameRef.current = requestAnimationFrame(animate);
     };
 
-    animate();
+    animationFrameRef.current = requestAnimationFrame(animate);
 
     const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      if (canvas) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
     };
 
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />;
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />;
 }
