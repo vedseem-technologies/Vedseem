@@ -77,7 +77,7 @@ export default function Footer({ onNavigate }: FooterProps) {
 
         <div className="border-t border-blue-500/20 mt-8 pt-8 text-center">
           <p className="text-gray-400 flex items-center justify-center gap-2">
-            Copyright © {currentYear} Vedseem. Made with <Heart size={16} className="text-red-500" /> in San Francisco
+            Copyright © {currentYear} Vedseem
           </p>
         </div>
       </div>

@@ -1,5 +1,5 @@
-import { ArrowRight, Sparkles } from 'lucide-react';
-import ParticleBackground from './ParticleBackground';
+import { ArrowRight, Sparkles } from "lucide-react";
+import ParticleBackground from "./ParticleBackground";
 
 interface HeroProps {
   onNavigate: (page: string) => void;
@@ -7,13 +7,18 @@ interface HeroProps {
 
 export default function Hero({ onNavigate }: HeroProps) {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+    <section
+      className="relative min-h-screen flex items-center justify-center 
+      overflow-hidden bg-black animate-hero-enter"
+    >
       <ParticleBackground />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full mb-8 animate-pulse">
           <Sparkles size={16} className="text-blue-400" />
-          <span className="text-sm text-blue-400 font-medium">Future-Ready IT Solutions</span>
+          <span className="text-sm text-blue-400 font-medium">
+            Future-Ready IT Solutions
+          </span>
         </div>
 
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight animate-fade-in">
@@ -24,15 +29,24 @@ export default function Hero({ onNavigate }: HeroProps) {
           </span>
         </h1>
 
-        <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
-          Vedseem delivers cutting-edge IT services, innovative software development, and strategic
-          technology consultation to help your business thrive in the digital age.
+        <p
+          className="text-lg md:text-xl text-gray-300 mb-12 max-w-3xl mx-auto animate-fade-in"
+          style={{ animationDelay: "0.2s" }}
+        >
+          Vedseem delivers cutting-edge IT services, innovative software
+          development, and strategic technology consultation to help your
+          business thrive in the digital age.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
+        <div
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in"
+          style={{ animationDelay: "0.4s" }}
+        >
           <button
-            onClick={() => onNavigate('services')}
-            className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 flex items-center gap-2 hover:transform hover:scale-105"
+            onClick={() => onNavigate("services")}
+            className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold
+            rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 flex items-center gap-2 
+            hover:scale-105"
           >
             Explore Services
             <ArrowRight
@@ -42,8 +56,9 @@ export default function Hero({ onNavigate }: HeroProps) {
           </button>
 
           <button
-            onClick={() => onNavigate('contact')}
-            className="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/20 text-white font-semibold rounded-lg hover:bg-white/10 transition-all duration-300 hover:transform hover:scale-105"
+            onClick={() => onNavigate("contact")}
+            className="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/20 text-white font-semibold 
+            rounded-lg hover:bg-white/10 transition-all duration-300 hover:scale-105"
           >
             Contact Us
           </button>

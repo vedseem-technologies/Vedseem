@@ -42,7 +42,8 @@
   }
 
   @keyframes float {
-    0%, 100% {
+    0%,
+    100% {
       transform: translateY(0px);
     }
     50% {
@@ -110,26 +111,42 @@
 }
 
 @keyframes progressFill {
-  from { width: 0%; }
-  to { width: 100%; }
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
 }
 .animate-progress {
   animation: progressFill 6s linear forwards;
 }
 
 @keyframes slideUp {
-  from { transform: translateY(50px); opacity: 0 }
-  to { transform: translateY(0); opacity: 1 }
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 @keyframes slideDown {
-  from { transform: translateY(0); opacity: 1 }
-  to { transform: translateY(-50px); opacity: 0 }
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
 }
 .animate-slide-up {
-  animation: slideUp .7s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: slideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .animate-slide-down {
-  animation: slideDown .7s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: slideDown 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .thumb-card {
@@ -140,7 +157,7 @@
   border: 2px solid rgba(96, 165, 250, 0.4);
   backdrop-filter: blur(6px);
   cursor: pointer;
-  transition: all .35s ease;
+  transition: all 0.35s ease;
 }
 .thumb-card:hover {
   transform: scale(1.1);
@@ -157,13 +174,13 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
-  padding: .75rem;
+  padding: 0.75rem;
   border-radius: 999px;
   color: white;
-  border: 1px solid rgba(255,255,255,.2);
-  transition: all .3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
 }
 .nav-btn:hover {
   scale: 1.15;
@@ -173,4 +190,70 @@
 .smooth-progress {
   will-change: width;
   transform: translateZ(0); /* GPU boost */
+}
+
+.thumb-card {
+  width: 90px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 12px;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Slide animation */
+.thumb-slide {
+  transform: translateX(-20px);
+  opacity: 0;
+}
+
+@keyframes heroEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-hero-enter {
+  animation: heroEnter 0.4s ease-out forwards;
+  opacity: 1;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200%;
+  }
+  100% {
+    background-position: 200%;
+  }
+}
+
+.animate-shimmer {
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
 }

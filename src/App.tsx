@@ -62,9 +62,9 @@ function App() {
     }
   };
 
-  if (loading) {
-    return <Loader onComplete={handleLoadingComplete} />;
-  }
+  // if (loading) {
+  //   return <Loader onComplete={handleLoadingComplete} />;
+  // }
 
   return (
     <div className="min-h-screen bg-black">

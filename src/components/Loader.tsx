@@ -1,39 +1,84 @@
-import { useEffect, useState } from 'react';
+"use client";
+import { useEffect, useState } from "react";
+import AnimatedText from "./ui/AnimatedText";
 
 interface LoaderProps {
+  pageReady: boolean;
   onComplete: () => void;
 }
 
-export default function Loader({ onComplete }: LoaderProps) {
+export default function Loader({ pageReady, onComplete }: LoaderProps) {
   const [fadeOut, setFadeOut] = useState(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setFadeOut(true);
-      setTimeout(onComplete, 800);
-    }, 2500);
+  // minimum time loader must stay
+  const MIN_TIME = 2200;
+  const [minDone, setMinDone] = useState(false);
 
-    return () => clearTimeout(timer);
-  }, [onComplete]);
+  useEffect(() => {
+    const t = setTimeout(() => setMinDone(true), MIN_TIME);
+    return () => clearTimeout(t);
+  }, []);
+
+  // when both ready → fade loader
+  useEffect(() => {
+    if (pageReady && minDone) {
+      setFadeOut(true);
+      const timeout = setTimeout(onComplete, 700);
+      return () => clearTimeout(timeout);
+    }
+  }, [pageReady, minDone, onComplete]);
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-black via-blue-950 to-black transition-opacity duration-800 ${
-        fadeOut ? 'opacity-0' : 'opacity-100'
-      }`}
+      className={`fixed inset-0 z-[99999] flex items-center justify-center
+      bg-gradient-to-br from-black via-blue-950 to-black
+
+      transition-opacity duration-700 
+      ${fadeOut ? "opacity-0" : "opacity-100"}`}
     >
-      <div className="relative">
-        <div className="text-6xl md:text-8xl font-bold text-white tracking-wider">
-          <span className="inline-block animate-pulse">V</span>
-          <span className="inline-block animate-pulse" style={{ animationDelay: '0.1s' }}>e</span>
-          <span className="inline-block animate-pulse" style={{ animationDelay: '0.2s' }}>d</span>
-          <span className="inline-block animate-pulse" style={{ animationDelay: '0.3s' }}>s</span>
-          <span className="inline-block animate-pulse" style={{ animationDelay: '0.4s' }}>e</span>
-          <span className="inline-block animate-pulse" style={{ animationDelay: '0.5s' }}>e</span>
-          <span className="inline-block animate-pulse" style={{ animationDelay: '0.6s' }}>m</span>
-        </div>
-        <div className="absolute -bottom-4 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent animate-pulse"></div>
+      {/* Animated Text */}
+      <div className="fadeText flex items-end gap-1">
+        <AnimatedText text="V" letterClass="loader-letter text-6xl" />
+        <AnimatedText text="EDSEEM" letterClass="loader-letter text-5xl" />
       </div>
+
+      <style jsx>{`
+        .fadeText {
+          display: inline-block;
+          opacity: 0;
+          transform: translateY(12px);
+          animation: fadeInText 1s ease-out forwards;
+        }
+
+        @keyframes fadeInText {
+          0% {
+            opacity: 0;
+            transform: translateY(12px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .loader-letter {
+          display: inline-block;
+          animation: float 1.8s ease-in-out infinite alternate;
+        }
+
+        .loader-letter:nth-child(odd) {
+          animation-delay: 0.2s;
+        }
+
+        @keyframes float {
+          0% {
+            transform: translateY(0);
+          }
+          100% {
+            transform: translateY(-4px);
+          }
+        }
+      `}</style>
     </div>
   );
 }
