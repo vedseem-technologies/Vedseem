@@ -21,7 +21,7 @@ export default function Hero({ onNavigate }: HeroProps) {
           </span>
         </div>
 
-        <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight animate-fade-in">
+        <h1 className="text-3xl md:text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fade-in">
           Transforming Ideas Into
           <br />
           <span className="text- bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 animate-shimmer">
@@ -30,7 +30,7 @@ export default function Hero({ onNavigate }: HeroProps) {
         </h1>
 
         <p
-          className="text-lg md:text-xl text-gray-300 mb-12 max-w-3xl mx-auto animate-fade-in"
+          className="text-md md:text-lg lg:text-xl text-gray-300 mb-12 max-w-3xl mx-auto animate-fade-in"
           style={{ animationDelay: "0.2s" }}
         >
           Vedseem delivers cutting-edge IT services, innovative software

@@ -44,16 +44,16 @@ function ParticleTimeline({ timeline }: ParticleTimelineProps) {
   }, []);
 
   const layout = useMemo(() => {
-    const gap = isLaptop ? 450 : 500;
+    const gap = isLaptop ? 400 : 450;
     return {
       gap,
       wavelength: gap * 2,
-      particleCount: isLaptop ? 1500 : 1000, // Further reduced for better performance
-      particleRadius: isLaptop ? 28 : 8,
+      particleCount: isLaptop ? 3000 : 1500, // Increased for thicker line
+      particleRadius: isLaptop ? 25 : 8,
       cardWidth: isLaptop ? "40%" : "88%",
-      snakeAmplitude: 0.35,
-      revealStartOffset: isLaptop ? -120 : -60,
-      revealEndOffset: isLaptop ? 60 : 60,
+      snakeAmplitude: 0.38,
+      revealStartOffset: isLaptop ? -250 : -150,
+      revealEndOffset: isLaptop ? -120 : 0,
     };
   }, [isLaptop]);
 

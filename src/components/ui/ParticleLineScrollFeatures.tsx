@@ -75,8 +75,8 @@ export default function ParticleLineScrollFeatures() {
       cardWidth: isLaptop ? "40%" : "88%",
       snakeAmplitude: 0.38,
       // User defined offsets (snappy)
-      revealStartOffset: isLaptop ? -100 : -50,
-      revealEndOffset: isLaptop ? 50 : 50,
+      revealStartOffset: isLaptop ? -250 : -150,
+      revealEndOffset: isLaptop ? -120 : 0,
     };
   }, [isLaptop]);
 

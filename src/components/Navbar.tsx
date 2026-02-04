@@ -33,13 +33,13 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
     <>
       {/* NAVBAR */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all  duration-300 ${
           scrolled
-            ? "bg-black/90 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.4)]"
-            : "bg-transparent"
+            ? "bg-black/90 backdrop-blur-md py-1 shadow-[0_10px_30px_rgba(0,0,0,0.4)]"
+            : "bg-transparent py-4"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+        <div className="max-w-[90%] mx-auto px-4 h-16 flex items-center justify-between">
           {/* LOGO */}
           <div
             onClick={() => onNavigate("home")}
@@ -86,7 +86,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                   
                   {/* Separator - only show if not the last item */}
                   {index < navItems.length - 1 && (
-                    <span className="mx-2 text-white/20 text-lg font-light select-none">|</span>
+                    <span className="mx-4 text-white/50 text-lg font-light select-none">|</span>
                   )}
                 </div>
               );
@@ -95,10 +95,10 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
 
           {/* MOBILE TOGGLE */}
           <button
-            onClick={() => setMobileMenuOpen(true)}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden text-white"
           >
-            <Menu size={26} />
+            {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
         </div>
       </nav>
@@ -111,41 +111,88 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
         }`}
       />
 
-      {/* MOBILE DRAWER */}
+      {/* MOBILE DRAWER - Slides from Top */}
       <aside
-        className={`fixed top-0 right-0 z-50 h-full w-[280px] bg-black/95 backdrop-blur-xl border-l border-white/10 transform transition-transform duration-300 ${
-          mobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed top-0 left-0 right-0 z-50 w-full bg-black/95 backdrop-blur-xl border-b border-white/10 transform transition-transform duration-500 ease-out ${
+          mobileMenuOpen ? "translate-y-0" : "-translate-y-full"
         }`}
       >
-        <div className="flex items-center justify-between px-5 h-16 border-b border-white/10">
-          <span className="text-lg font-semibold text-white">Menu</span>
-          <button onClick={() => setMobileMenuOpen(false)}>
-            <X className="text-white" />
-          </button>
-        </div>
+        <div className="max-w-7xl mx-auto">
+          {/* Header with close button */}
+          <div className="flex items-center justify-between px-6 h-20 border-b border-white/10">
+            <div>
+              <h2 className="text-xl font-bold text-white">Vedseem</h2>
+            </div>
+            <button 
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-2 hover:bg-white/10 rounded-full transition-colors"
+            >
+              <X className="text-white" size={24} />
+            </button>
+          </div>
 
-        <div className="p-5 space-y-3">
-          {navItems.map((item) => {
-            const active = currentPage === item.page;
-            return (
-              <button
-                key={item.page}
-                onClick={() => {
-                  onNavigate(item.page);
-                  setMobileMenuOpen(false);
-                }}
-                className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
-                  active
-                    ? "bg-blue-500/15 text-blue-400"
-                    : "text-white hover:bg-white/5 hover:translate-x-1"
-                }`}
-              >
-                {item.label}
-              </button>
-            );
-          })}
+          {/* Navigation Items */}
+          <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[70vh] overflow-y-auto">
+            {navItems.map((item, index) => {
+              const active = currentPage === item.page;
+              return (
+                <button
+                  key={item.page}
+                  onClick={() => {
+                    onNavigate(item.page);
+                    setMobileMenuOpen(false);
+                  }}
+                  style={{
+                    animationDelay: `${index * 80}ms`
+                  }}
+                  className={`group relative overflow-hidden rounded-xl transition-all duration-300 ${
+                    mobileMenuOpen ? 'animate-[slideDown_0.5s_ease-out_forwards]' : ''
+                  } ${
+                    active ? "scale-[1.02]" : "hover:scale-[1.02]"
+                  }`}
+                >
+                  {/* Glassmorphism Card */}
+                  <div className={`relative p-3 backdrop-blur-xl border transition-all duration-300 ${
+                    active 
+                      ? "bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border-blue-400/30 shadow-lg shadow-blue-500/20" 
+                      : "bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20"
+                  }`}>
+                    {/* Gradient Overlay on Hover */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-cyan-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    
+                    {/* Content */}
+                    <div className="relative">
+                      <span className={`text-base font-semibold transition-colors ${
+                        active ? "text-blue-400" : "text-white"
+                      }`}>
+                        {item.label}
+                      </span>
+                    </div>
+
+                    {/* Active Indicator Bar */}
+                    {active && (
+                      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-t-full" />
+                    )}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </aside>
+
+      <style jsx>{`
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </>
   );
 }

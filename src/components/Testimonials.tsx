@@ -62,7 +62,7 @@ export default function Testimonials() {
         <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="flex w-full flex-col items-center gap-8 sm:gap-16">
             <div className="text-center">
-              <h2 className="mb-4 text-4xl font-black text-white md:text-6xl">
+              <h2 className="mb-14 text-4xl font-black text-white md:text-6xl">
                 What Our{" "}
                 <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
                   Clients Say
