@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import Loader from './components/Loader';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -7,20 +6,16 @@ import About from './pages/About';
 import Services from './pages/Services';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
-import TechStack from './components/TechStack';
-import Testimonials from './components/Testimonials';
 
 function App() {
-  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState('home');
 
-  const handleLoadingComplete = () => {
-    setLoading(false);
-  };
+
 
   const handleNavigate = (page: string) => {
     setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Instant scroll to top on page change
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   useEffect(() => {
@@ -42,13 +37,7 @@ function App() {
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
-        return (
-          <>
-            <Home onNavigate={handleNavigate} />
-            <TechStack />
-            <Testimonials />
-          </>
-        );
+        return <Home onNavigate={handleNavigate} />;
       case 'about':
         return <About />;
       case 'services':

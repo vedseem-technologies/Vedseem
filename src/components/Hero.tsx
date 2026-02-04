@@ -1,5 +1,5 @@
 import { ArrowRight, Sparkles } from "lucide-react";
-import ParticleBackground from "./ParticleBackground";
+import Hero3D from "./ui/Hero3D";
 
 interface HeroProps {
   onNavigate: (page: string) => void;
@@ -11,7 +11,7 @@ export default function Hero({ onNavigate }: HeroProps) {
       className="relative min-h-screen flex items-center justify-center 
       overflow-hidden bg-black animate-hero-enter"
     >
-      <ParticleBackground />
+      <Hero3D />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full mb-8 animate-pulse">
@@ -24,7 +24,7 @@ export default function Hero({ onNavigate }: HeroProps) {
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight animate-fade-in">
           Transforming Ideas Into
           <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 animate-shimmer">
+          <span className="text- bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 animate-shimmer">
             Future-Ready Solutions
           </span>
         </h1>

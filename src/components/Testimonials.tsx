@@ -1,175 +1,135 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
-import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
-import type { Testimonial } from "../types";
-import { motion, AnimatePresence } from "framer-motion";
+
+import * as React from "react";
+import {
+  CardTransformed,
+  CardsContainer,
+  ContainerScroll,
+  ReviewStars,
+} from "./ui/animated-cards-stack";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+
+const TESTIMONIALS = [
+  {
+    id: "testimonial-3",
+    name: "James S.",
+    profession: "Frontend Developer",
+    rating: 5,
+    description:
+      "Their innovative solutions and quick turnaround time made our collaboration incredibly successful. Highly recommended!",
+    avatarUrl:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=600&auto=format&fit=crop",
+  },
+  {
+    id: "testimonial-1",
+    name: "Jessica H.",
+    profession: "Web Designer",
+    rating: 4.5,
+    description:
+      "The attention to detail and user experience in their work is exceptional. I'm thoroughly impressed with the final product.",
+    avatarUrl:
+      "https://plus.unsplash.com/premium_photo-1690407617542-2f210cf20d7e?w=600&auto=format&fit=crop&q=60",
+  },
+  {
+    id: "testimonial-2",
+    name: "Lisa M.",
+    profession: "UX Designer",
+    rating: 5,
+    description:
+      "Working with them was a game-changer for our project. Their expertise and professionalism exceeded our expectations.",
+    avatarUrl:
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop&q=60",
+  },
+  {
+    id: "testimonial-4",
+    name: "Jane D.",
+    profession: "UI/UX Designer",
+    rating: 4.5,
+    description:
+      "The quality of work and communication throughout the project was outstanding. They delivered exactly what we needed.",
+    avatarUrl:
+      "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&auto=format&fit=crop&q=60",
+  },
+];
 
 export default function Testimonials() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [progress, setProgress] = useState(0);
-
-  const testimonials: Testimonial[] = [
-    {
-      name: "David Martinez",
-      role: "CEO",
-      company: "TechCorp Solutions",
-      image:
-        "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400",
-      text: "Vedseem transformed our digital infrastructure completely. Their expertise in cloud solutions and DevOps helped us scale our operations efficiently. Highly recommended!",
-    },
-    {
-      name: "Jennifer Lee",
-      role: "Product Manager",
-      company: "InnovateLabs",
-      image:
-        "https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=400",
-      text: "Working with Vedseem was a game-changer for our startup. They delivered a beautiful, functional app ahead of schedule and within budget. True professionals!",
-    },
-    {
-      name: "Robert Thompson",
-      role: "CTO",
-      company: "FinanceFlow",
-      image:
-        "https://images.pexels.com/photos/3777943/pexels-photo-3777943.jpeg?auto=compress&cs=tinysrgb&w=400",
-      text: "The team at Vedseem is exceptional. Their attention to detail and commitment to quality is unmatched. They built us a secure, scalable platform that exceeded expectations.",
-    },
-  ];
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    setProgress(0);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length
-    );
-    setProgress(0);
-  };
-
-  // AUTOPLAY + PROGRESS BAR
-  useEffect(() => {
-    const duration = 6000;
-    const step = 40;
-
-    let interval = setInterval(() => {
-      setProgress((p) => {
-        if (p >= 100) {
-          nextSlide();
-          return 0;
-        }
-        return p + 100 / (duration / step);
-      });
-    }, step);
-
-    return () => clearInterval(interval);
-  }, [currentIndex]);
-
   return (
-    <section className="bg-black py-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Heading */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
-            What Our{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
-              Clients Say
-            </span>
-          </h2>
-          <p className="text-gray-300 text-lg">
-            Trusted by global leaders, proven by results.
-          </p>
-        </div>
-
-        <div className="relative">
-          {/* CARD */}
-          <div
-            className="relative bg-gradient-to-br from-blue-900/30 to-cyan-900/20 
-          backdrop-blur-xl border border-blue-500/20 rounded-3xl
-          p-6 sm:p-10 md:p-14 shadow-xl overflow-hidden"
-          >
-            {/* PROGRESS BAR */}
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-blue-500/20 overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-500"
-                style={{ width: `${progress}%` }}
-              ></div>
+    <ContainerScroll
+      id="testimonials"
+      className="relative bg-black h-[500vh] w-full"
+    >
+      <div className="sticky top-0 left-0 h-svh w-full flex flex-col items-center justify-center overflow-hidden py-12">
+        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="flex w-full flex-col items-center gap-8 sm:gap-16">
+            <div className="text-center">
+              <h2 className="mb-4 text-4xl font-black text-white md:text-6xl">
+                What Our{" "}
+                <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                  Clients Say
+                </span>
+              </h2>
+              <p className="mx-auto max-w-2xl text-lg text-gray-400 hidden sm:block">
+                Trusted by global leaders, proven by results. We take pride in
+                delivering exceptional digital experiences that drive growth.
+              </p>
             </div>
 
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentIndex}
-                initial={{ opacity: 0, x: 50, scale: 0.95 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, x: -50, scale: 0.95 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-              >
-                {/* Quote Icon */}
-                <Quote size={48} className="text-blue-400 mb-6" />
-
-                {/* TEXT */}
-                <p className="text-xl md:text-2xl text-white leading-relaxed mb-10">
-                  "{testimonials[currentIndex].text}"
-                </p>
-
-                {/* PROFILE */}
-                <motion.div className="flex items-center gap-4">
-                  <motion.img
-                    whileHover={{ scale: 1.1 }}
-                    src={testimonials[currentIndex].image}
-                    alt={testimonials[currentIndex].name}
-                    className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover 
-                    border-2 border-blue-500 shadow-lg shadow-blue-500/30"
-                  />
-
-                  <div>
-                    <h4 className="text-lg md:text-xl font-bold text-white">
-                      {testimonials[currentIndex].name}
-                    </h4>
-                    <p className="text-blue-300">
-                      {testimonials[currentIndex].role} •{" "}
-                      {testimonials[currentIndex].company}
-                    </p>
-                  </div>
-                </motion.div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* NAV BUTTONS */}
-          <button
-            onClick={prevSlide}
-            className="absolute -left-4 md:-left-6 top-1/2 -translate-y-1/2 
-            bg-blue-600/80 hover:bg-blue-600 text-white p-3 md:p-4 rounded-full shadow-xl"
-          >
-            <ChevronLeft size={24} />
-          </button>
-
-          <button
-            onClick={nextSlide}
-            className="absolute -right-4 md:-right-6 top-1/2 -translate-y-1/2 
-            bg-blue-600/80 hover:bg-blue-600 text-white p-3 md:p-4 rounded-full shadow-xl"
-          >
-            <ChevronRight size={24} />
-          </button>
-
-          {/* DOTS */}
-          <div className="flex justify-center gap-3 mt-8">
-            {testimonials.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => {
-                  setCurrentIndex(i);
-                  setProgress(0);
-                }}
-                className={`h-2 rounded-full transition-all ${
-                  currentIndex === i ? "w-8 bg-blue-500" : "w-3 bg-blue-500/40"
-                }`}
-              ></button>
-            ))}
+            <div className="relative w-full flex justify-center h-[380px] sm:h-[480px]">
+              <CardsContainer className="w-full max-w-[300px] sm:max-w-[420px] h-full relative">
+                {TESTIMONIALS.map((testimonial, index) => (
+                  <CardTransformed
+                    arrayLength={TESTIMONIALS.length}
+                    key={testimonial.id}
+                    variant="dark"
+                    index={index}
+                    role="article"
+                    aria-labelledby={`card-${testimonial.id}-title`}
+                    aria-describedby={`card-${testimonial.id}-content`}
+                    className="p-5 sm:p-8"
+                  >
+                    <div className="flex flex-1 flex-col items-center justify-center space-y-6 sm:space-y-8 text-center">
+                      <ReviewStars
+                        rating={testimonial.rating}
+                        className="text-blue-500 scale-90 sm:scale-100"
+                      />
+                      <div
+                        id={`card-${testimonial.id}-content`}
+                        className="mx-auto w-full text-base sm:text-xl text-white/90 font-medium px-2"
+                      >
+                        <blockquote cite="#" className="leading-relaxed italic line-clamp-4 sm:line-clamp-none">
+                          “{testimonial.description}”
+                        </blockquote>
+                      </div>
+                    </div>
+                    <div className="mt-auto flex items-center gap-3 sm:gap-4 w-full px-2 sm:px-4 border-t border-white/5 pt-4 sm:pt-6 pb-2">
+                      <Avatar className="h-10 w-10 sm:h-14 sm:h-14 border-2 border-blue-500/50">
+                        <AvatarImage
+                          src={testimonial.avatarUrl}
+                          alt={testimonial.name}
+                        />
+                        <AvatarFallback className="bg-blue-500/20 text-blue-400 font-bold text-xs sm:text-sm">
+                          {testimonial.name[0]}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="text-left">
+                        <span
+                          id={`card-${testimonial.id}-title`}
+                          className="block text-base sm:text-xl font-bold text-white line-clamp-1"
+                        >
+                          {testimonial.name}
+                        </span>
+                        <span className="block text-xs sm:text-sm text-blue-400/80 font-medium tracking-tight">
+                          {testimonial.profession}
+                        </span>
+                      </div>
+                    </div>
+                  </CardTransformed>
+                ))}
+              </CardsContainer>
+            </div>
           </div>
         </div>
       </div>
-    </section>
+    </ContainerScroll>
   );
 }

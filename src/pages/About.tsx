@@ -1,189 +1,306 @@
-import { Linkedin, Target, Eye, TrendingUp } from 'lucide-react';
-import type { TeamMember } from '../types';
+import { Target, Eye, TrendingUp } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Suspense, lazy, memo } from 'react';
+import { Reveal, RevealText } from '../components/ui/RevealText';
+
+// Lazy load heavy 3D components
+const StatsVisualization3D = lazy(() => import('../components/about/StatsVisualization3D').then(m => ({ default: m.default })));
+const ParticleTimeline = lazy(() => import('../components/about/ParticleTimeline').then(m => ({ default: m.default })));
+const AnimatedValueCard = lazy(() => import('../components/about/AnimatedValueCard').then(m => ({ default: m.default })));
+const HolographicCard = lazy(() => import('../components/about/HolographicCard').then(m => ({ default: m.default })));
+
+// Loading fallback
+const ComponentLoader = () => (
+  <div className="w-full h-64 flex items-center justify-center">
+    <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+  </div>
+);
 
 export default function About() {
-  const teamMembers: TeamMember[] = [
-    {
-      name: 'Alex Johnson',
-      role: 'CEO & Founder',
-      image: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=400',
-      linkedin: 'https://linkedin.com',
-    },
-    {
-      name: 'Sarah Chen',
-      role: 'CTO',
-      image: 'https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=400',
-      linkedin: 'https://linkedin.com',
-    },
-    {
-      name: 'Michael Torres',
-      role: 'Head of Development',
-      image: 'https://images.pexels.com/photos/3785077/pexels-photo-3785077.jpeg?auto=compress&cs=tinysrgb&w=400',
-      linkedin: 'https://linkedin.com',
-    },
-    {
-      name: 'Emily Watson',
-      role: 'Design Lead',
-      image: 'https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?auto=compress&cs=tinysrgb&w=400',
-      linkedin: 'https://linkedin.com',
-    },
+  const timeline = [
+    { year: '2020', event: 'Founded Vedseem with a vision to revolutionize IT solutions', icon: '🚀' },
+    { year: '2021', event: 'Expanded team to 20+ developers and launched first major product', icon: '👥' },
+    { year: '2022', event: 'Opened second office and reached 100+ satisfied clients', icon: '🏢' },
+    { year: '2023', event: 'Won Best IT Startup Award and launched AI-powered solutions', icon: '🏆' },
+    { year: '2024', event: 'Global expansion with clients across 15 countries', icon: '🌍' },
   ];
 
-  const timeline = [
-    { year: '2020', event: 'Founded Vedseem with a vision to revolutionize IT solutions' },
-    { year: '2021', event: 'Expanded team to 20+ developers and launched first major product' },
-    { year: '2022', event: 'Opened second office and reached 100+ satisfied clients' },
-    { year: '2023', event: 'Won Best IT Startup Award and launched AI-powered solutions' },
-    { year: '2024', event: 'Global expansion with clients across 15 countries' },
+  const stats = [
+    { number: '100+', label: 'Clients Served' },
+    { number: '200+', label: 'Projects Completed' },
+    { number: '15+', label: 'Countries' },
+    { number: '50+', label: 'Team Members' },
+  ];
+
+  const values = [
+    { 
+      title: 'Innovation', 
+      desc: 'Pushing boundaries with cutting-edge solutions', 
+      icon: '💡',
+      back: 'We constantly explore new technologies and methodologies to deliver innovative solutions that set industry standards.'
+    },
+    { 
+      title: 'Excellence', 
+      desc: 'Delivering quality that exceeds expectations', 
+      icon: '⭐',
+      back: 'Our commitment to excellence drives us to deliver exceptional results in every project we undertake.'
+    },
+    { 
+      title: 'Integrity', 
+      desc: 'Building trust through transparency and honesty', 
+      icon: '🤝',
+      back: 'We build lasting relationships through honest communication and ethical business practices.'
+    },
+    { 
+      title: 'Collaboration', 
+      desc: 'Working together to achieve shared success', 
+      icon: '🚀',
+      back: 'Teamwork and partnership are at the heart of everything we do, ensuring collective success.'
+    },
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white pt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center mb-20">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in">
-            About <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Vedseem</span>
+    <>
+      <style>{`
+        body {
+          background-color: #000000 !important;
+        }
+        html {
+          background-color: #000000 !important;
+        }
+      `}</style>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="min-h-screen text-white pt-20 overflow-hidden relative"
+        style={{ 
+          backgroundColor: '#000000',
+        }}
+      >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20"
+      >
+        {/* Hero Section - Optimized */}
+        <HeroSection />
+
+        {/* Mission, Vision, Growth - Optimized Cards */}
+        <MissionVisionSection />
+
+        {/* Core Values - Optimized */}
+        <CoreValuesSection values={values} />
+
+        {/* Journey Timeline - Lazy Loaded */}
+        <Suspense fallback={<ComponentLoader />}>
+          <ParticleTimeline timeline={timeline} />
+        </Suspense>
+
+        {/* Stats Section - Lazy Loaded */}
+        <Suspense fallback={<ComponentLoader />}>
+          <StatsVisualization3D stats={stats} />
+        </Suspense>
+      </motion.div>
+
+      {/* Optimized Background */}
+      <OptimizedBackground />
+      </motion.div>
+    </>
+  );
+}
+
+// Vedseem Reveal Animation Component
+const VedseemReveal = memo(() => {
+  return (
+    <div className="relative inline-block">
+      {/* Base gradient text (always visible) */}
+      <h1 className="text-7xl md:text-9xl font-black relative z-10">
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400">
+          Vedseem
+        </span>
+      </h1>
+      
+      {/* Reveal sweep overlay */}
+      <motion.div
+        className="absolute inset-0 overflow-hidden z-20"
+        initial={{ clipPath: 'inset(0 100% 0 0)' }}
+        animate={{ clipPath: 'inset(0 0 0 0)' }}
+        transition={{ 
+          duration: 1.2, 
+          delay: 0.4,
+          ease: [0.25, 0.1, 0.25, 1]
+        }}
+        style={{ willChange: 'clip-path' }}
+      >
+        <h1 className="text-7xl md:text-9xl font-black">
+          <motion.span
+            className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-blue-300 to-cyan-300"
+            initial={{ opacity: 0.8 }}
+            animate={{ opacity: [0.8, 1, 0.8] }}
+            transition={{ 
+              duration: 1.2,
+              delay: 0.4,
+              times: [0, 0.5, 1]
+            }}
+          >
+            Vedseem
+          </motion.span>
+        </h1>
+      </motion.div>
+      
+      {/* Glow pulse effect */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none z-0"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ 
+          opacity: [0, 0.5, 0.2, 0],
+          scale: [0.9, 1.1, 1, 1]
+        }}
+        transition={{ 
+          duration: 1.8,
+          delay: 0.4,
+          times: [0, 0.3, 0.7, 1],
+          ease: "easeOut"
+        }}
+        style={{ willChange: 'opacity, transform' }}
+      >
+        <h1 className="text-7xl md:text-9xl font-black">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 blur-lg">
+            Vedseem
+          </span>
+        </h1>
+      </motion.div>
+    </div>
+  );
+});
+VedseemReveal.displayName = 'VedseemReveal';
+
+// Optimized Hero Section
+const HeroSection = memo(() => {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="relative text-center mb-32"
+      style={{ willChange: 'opacity' }}
+    >
+      {/* <Suspense fallback={null}>
+        <FloatingGeometry />
+      </Suspense> */}
+
+      <div className="relative z-10">
+        <Reveal className="inline-block mb-4">
+          <h1 className="text-6xl md:text-9xl font-bold text-gray-300">
+            About<span className='opacity-0 text-5xl'>w</span> 
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto animate-fade-in">
-            We are a forward-thinking technology company dedicated to transforming businesses through innovative IT solutions and cutting-edge software development.
+        </Reveal>
+
+        <div className="relative inline-block mb-8">
+            <Reveal delay={0.1}>
+                 <VedseemReveal />
+            </Reveal>
+        </div>
+
+        <Reveal 
+          delay={0.2}
+          className="inline-block p-8 rounded-3xl bg-gradient-to-br from-blue-500/10 via-cyan-500/5 to-blue-500/10 backdrop-blur-xl border border-blue-500/20 shadow-2xl shadow-blue-500/20"
+        >
+          <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            We are a forward-thinking technology company dedicated to transforming businesses
+            through innovative IT solutions and cutting-edge software development.
           </p>
-        </div>
+        </Reveal>
+      </div>
+    </motion.div>
+  );
+});
+HeroSection.displayName = 'HeroSection';
 
-        <div className="grid md:grid-cols-3 gap-8 mb-20">
-          <div className="bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border border-blue-500/20 rounded-2xl p-8 hover:border-blue-500/40 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20 group">
-            <div className="group-hover:scale-110 transition-transform duration-300">
-              <Target className="text-blue-400 mb-4" size={40} />
-            </div>
-            <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
-            <p className="text-gray-300 leading-relaxed">
-              To empower businesses with innovative technology solutions that drive growth, efficiency, and digital transformation.
-            </p>
-          </div>
+// Optimized Mission Vision Section
+const MissionVisionSection = memo(() => {
+  const cards = [
+    {
+      icon: <Target className="text-blue-400" size={40} />,
+      title: "Our Mission",
+      description: "To empower businesses with innovative technology solutions that drive growth, efficiency, and digital transformation."
+    },
+    {
+      icon: <Eye className="text-blue-400" size={40} />,
+      title: "Our Vision",
+      description: "To become the global leader in IT consulting and software development, known for excellence and innovation."
+    },
+    {
+      icon: <TrendingUp className="text-blue-400" size={40} />,
+      title: "Our Growth",
+      description: "From a startup to serving 100+ clients worldwide, we continue to expand our impact in the tech industry."
+    }
+  ];
 
-          <div className="bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border border-blue-500/20 rounded-2xl p-8 hover:border-blue-500/40 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20 group">
-            <div className="group-hover:scale-110 transition-transform duration-300">
-              <Eye className="text-blue-400 mb-4" size={40} />
-            </div>
-            <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
-            <p className="text-gray-300 leading-relaxed">
-              To become the global leader in IT consulting and software development, known for excellence and innovation.
-            </p>
-          </div>
+  return (
+    <div className="grid md:grid-cols-3 gap-8 mb-32">
+      {cards.map((card, index) => (
+        <Reveal
+           key={index}
+           delay={index * 0.1}
+           width="100%"
+        >
+            <Suspense fallback={<ComponentLoader />}>
+            <AnimatedValueCard
+                icon={card.icon}
+                title={card.title}
+                description={card.description}
+                index={index}
+            />
+            </Suspense>
+        </Reveal>
+      ))}
+    </div>
+  );
+});
+MissionVisionSection.displayName = 'MissionVisionSection';
 
-          <div className="bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border border-blue-500/20 rounded-2xl p-8 hover:border-blue-500/40 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20 group">
-            <div className="group-hover:scale-110 transition-transform duration-300">
-              <TrendingUp className="text-blue-400 mb-4" size={40} />
-            </div>
-            <h3 className="text-2xl font-bold mb-4">Our Growth</h3>
-            <p className="text-gray-300 leading-relaxed">
-              From a startup to serving 100+ clients worldwide, we continue to expand our impact in the tech industry.
-            </p>
-          </div>
-        </div>
-
-        {/* Values Section */}
-        <div className="mb-20">
-          <h2 className="text-4xl font-bold text-center mb-12">Our Core Values</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { title: 'Innovation', desc: 'Pushing boundaries with cutting-edge solutions', icon: '💡' },
-              { title: 'Excellence', desc: 'Delivering quality that exceeds expectations', icon: '⭐' },
-              { title: 'Integrity', desc: 'Building trust through transparency and honesty', icon: '🤝' },
-              { title: 'Collaboration', desc: 'Working together to achieve shared success', icon: '🚀' },
-            ].map((value, index) => (
-              <div
-                key={index}
-                className="bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border border-blue-500/20 rounded-xl p-6 hover:border-blue-500/60 transition-all duration-300 hover:transform hover:scale-105 text-center"
-              >
-                <div className="text-4xl mb-3">{value.icon}</div>
-                <h3 className="text-xl font-bold mb-2">{value.title}</h3>
-                <p className="text-gray-300 text-sm">{value.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="mb-20">
-          <h2 className="text-4xl font-bold text-center mb-12">Our Journey</h2>
-          <div className="relative">
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-blue-500 to-cyan-500"></div>
-            <div className="space-y-12">
-              {timeline.map((item, index) => (
-                <div
-                  key={index}
-                  className={`flex items-center ${
-                    index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
-                  } animate-fade-in`}
-                  style={{ animationDelay: `${index * 0.2}s` }}
-                >
-                  <div className={`w-1/2 ${index % 2 === 0 ? 'pr-12 text-right' : 'pl-12'}`}>
-                    <div className="bg-gradient-to-br from-blue-900/40 to-cyan-900/40 border border-blue-500/20 rounded-xl p-6 hover:border-blue-500/40 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20">
-                      <h3 className="text-2xl font-bold text-blue-400 mb-2">{item.year}</h3>
-                      <p className="text-gray-300 leading-relaxed">{item.event}</p>
-                    </div>
-                  </div>
-                  <div className="relative z-10">
-                    <div className="w-4 h-4 bg-blue-500 rounded-full border-4 border-black animate-pulse"></div>
-                  </div>
-                  <div className="w-1/2"></div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <h2 className="text-4xl font-bold text-center mb-12">Meet Our Team</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {teamMembers.map((member, index) => (
-              <div
-                key={index}
-                className="group bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border border-blue-500/20 rounded-2xl p-6 hover:border-blue-500/40 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20"
-              >
-                <div className="relative mb-6 overflow-hidden rounded-xl">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                </div>
-                <h3 className="text-xl font-bold mb-1">{member.name}</h3>
-                <p className="text-blue-400 mb-4">{member.role}</p>
-                <a
-                  href={member.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-gray-300 hover:text-blue-400 transition-colors group-hover:translate-x-1"
-                >
-                  <Linkedin size={18} />
-                  <span>Connect on LinkedIn</span>
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Stats Section */}
-        <div className="mt-20 bg-gradient-to-r from-blue-900/40 via-cyan-900/40 to-blue-900/40 border border-blue-500/20 rounded-2xl p-12">
-          <h2 className="text-4xl font-bold text-center mb-12">By The Numbers</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { number: '100+', label: 'Clients Served' },
-              { number: '200+', label: 'Projects Completed' },
-              { number: '15+', label: 'Countries' },
-              { number: '50+', label: 'Team Members' },
-            ].map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-2">
-                  {stat.number}
-                </div>
-                <div className="text-gray-300">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
+// Optimized Core Values Section
+const CoreValuesSection = memo(({ values }: { values: Array<{ title: string; desc: string; icon: string; back: string }> }) => {
+  return (
+    <div className="mb-32">
+      <RevealText className="block text-center mb-12">
+        <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+            Our Core Values
+        </h2>
+      </RevealText>
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {values.map((value, index) => (
+          <Reveal
+            key={index}
+            delay={index * 0.1}
+            width="100%"
+          >
+            <Suspense fallback={<ComponentLoader />}>
+                <HolographicCard
+                icon={value.icon}
+                title={value.title}
+                description={value.desc}
+                backContent={value.back}
+                index={index}
+                />
+            </Suspense>
+          </Reveal>
+        ))}
       </div>
     </div>
   );
-}
+});
+CoreValuesSection.displayName = 'CoreValuesSection';
+
+// Optimized Background - Reduced animation complexity
+const OptimizedBackground = memo(() => {
+  return (
+    <div className="fixed inset-0 -z-20 overflow-hidden pointer-events-none">
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-950 via-black to-cyan-950" />
+    </div>
+  );
+});
+OptimizedBackground.displayName = 'OptimizedBackground';

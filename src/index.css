@@ -3,12 +3,43 @@
 @tailwind utilities;
 
 @layer base {
+  /* Shadcn-style design tokens (light + dark merged, but we keep dark values to match current site) */
+  :root {
+    --background: 60 2.70% 14.51%;
+    --foreground: 46.15 9.77% 73.92%;
+    --card: 60 2.70% 14.51%;
+    --card-foreground: 48 33.33% 97.06%;
+    --popover: 60 2.13% 18.43%;
+    --popover-foreground: 60 5.45% 89.22%;
+    --primary: 14.77 63.11% 59.61%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 48 33.33% 97.06%;
+    --secondary-foreground: 60 2.13% 18.43%;
+    --muted: 60 3.85% 10.20%;
+    --muted-foreground: 51.43 8.86% 69.02%;
+    --accent: 48 10.64% 9.22%;
+    --accent-foreground: 51.43 25.93% 94.71%;
+    --destructive: 0 84.24% 60.20%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 60 5.08% 23.14%;
+    --input: 52.50 5.13% 30.59%;
+    --ring: 210 74.80% 49.80%;
+    --radius: 0.5rem;
+  }
+
   * {
     scroll-behavior: smooth;
+    border-color: hsl(var(--border));
+  }
+
+  html {
+    background-color: #000000;
   }
 
   body {
     @apply antialiased;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
   }
 }
 
@@ -256,4 +287,17 @@
 .animate-shimmer {
   background-size: 200% auto;
   animation: shimmer 3s linear infinite;
+}
+
+/* 3D Perspective utilities for About page */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
 }
