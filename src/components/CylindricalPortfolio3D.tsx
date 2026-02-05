@@ -307,17 +307,26 @@ export default function CylindricalPortfolio3D({ projects, radius = 18 }: Cylind
   const [isMobile, setIsMobile] = useState(false);
   const [hoveredProjectIndex, setHoveredProjectIndex] = useState<number | null>(null);
   const isMouseOverUI = useRef(false);
+  const hoverClearTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const handleProjectHover = (index: number | null) => {
+    // Clear any pending timeout
+    if (hoverClearTimeout.current) {
+      clearTimeout(hoverClearTimeout.current);
+      hoverClearTimeout.current = null;
+    }
+
     // Always show the latest hovered project immediately.
     if (index !== null) {
       setHoveredProjectIndex(index);
       return;
     }
 
-    // Only clear when pointer has fully left both 3D mesh and bottom UI.
+    // Debounce the clear: wait a bit before clearing to allow smooth transition to UI
     if (!isMouseOverUI.current) {
-      setHoveredProjectIndex(null);
+      hoverClearTimeout.current = setTimeout(() => {
+        setHoveredProjectIndex(null);
+      }, 150); // 150ms delay prevents flash when moving from image to description
     }
   };
 
@@ -422,6 +431,10 @@ export default function CylindricalPortfolio3D({ projects, radius = 18 }: Cylind
       window.removeEventListener('scroll', handleScroll);
       if (scrollContainer) scrollContainer.removeEventListener('scroll', handleHorizontalScroll);
       if (rafId) cancelAnimationFrame(rafId);
+      // Cleanup hover timeout
+      if (hoverClearTimeout.current) {
+        clearTimeout(hoverClearTimeout.current);
+      }
     };
   }, [isMobile]);
   
@@ -549,9 +562,19 @@ export default function CylindricalPortfolio3D({ projects, radius = 18 }: Cylind
 
           {/* Project Details Card - BOTTOM OVERLAY */}
           <div 
-            className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black via-black/80 to-transparent flex items-end justify-center pb-24 px-6 pointer-events-auto"
-            onMouseEnter={() => { isMouseOverUI.current = true; }}
-            onMouseLeave={() => { isMouseOverUI.current = false; handleProjectHover(null); }}
+            className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-black via-black/80 to-transparent flex items-end justify-center pb-24 px-6 pointer-events-auto"
+            onMouseEnter={() => { 
+              isMouseOverUI.current = true;
+              // Cancel any pending clear timeout when entering UI
+              if (hoverClearTimeout.current) {
+                clearTimeout(hoverClearTimeout.current);
+                hoverClearTimeout.current = null;
+              }
+            }}
+            onMouseLeave={() => { 
+              isMouseOverUI.current = false; 
+              handleProjectHover(null); 
+            }}
           >
             <div className={`max-w-4xl w-full transition-all duration-500 transform ${hoveredProjectIndex !== null ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               {hoveredProjectIndex !== null && (

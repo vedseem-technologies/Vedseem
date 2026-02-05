@@ -11,19 +11,17 @@ import {
 import { FooterBackgroundGradient } from "@/components/ui/hover-footer";
 import { TextHoverEffect } from "@/components/ui/hover-footer";
 
-interface HoverFooterProps {
-  onNavigate?: (page: string) => void;
-}
+import { Link } from "react-router-dom";
 
-function HoverFooter({ onNavigate }: HoverFooterProps) {
+function HoverFooter() {
   // Footer link data
   const footerLinks = [
     {
       title: "About Us",
       links: [
-        { label: "Company History", href: "#", onClick: () => onNavigate?.("about") },
-        { label: "Meet the Team", href: "#", onClick: () => onNavigate?.("about") },
-        { label: "Our Services", href: "#", onClick: () => onNavigate?.("services") },
+        { label: "Company History", path: "/about" },
+        { label: "Meet the Team", path: "/about" },
+        { label: "Our Services", path: "/services" },
         { label: "Careers", href: "#" },
       ],
     },
@@ -94,13 +92,13 @@ function HoverFooter({ onNavigate }: HoverFooterProps) {
               <ul className="space-y-3">
                 {section.links.map((link) => (
                   <li key={link.label} className="relative">
-                    {'onClick' in link && link.onClick ? (
-                      <button
-                        onClick={link.onClick}
+                    {'path' in link ? (
+                      <Link
+                        to={(link as any).path}
                         className="text-gray-400 hover:text-[#3b82f6] transition-colors text-left"
                       >
                         {link.label}
-                      </button>
+                      </Link>
                     ) : (
                       <a
                         href={link.href}

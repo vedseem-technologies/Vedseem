@@ -22,57 +22,52 @@ export default function ProjectCard({ project, index, onClick }: ProjectCardProp
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
       onClick={onClick}
-      className="group cursor-pointer bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-blue-500/50 hover:bg-white/[0.07] transition-all duration-300"
+      className="group cursor-pointer bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-blue-500/50 hover:bg-white/[0.07] transition-all duration-300 flex flex-col h-full"
     >
-      {/* Image */}
-      <div className="relative overflow-hidden h-56">
-        <img 
-          src={project.image} 
-          alt={project.title} 
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-        />
-        
-        {/* Status Badge */}
-        <div className="absolute top-4 right-4 z-10">
-          <div className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
-            project.status === 'completed' 
-              ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
-              : 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
-          }`}>
-            {project.status}
-          </div>
+      {/* Image - Conditional Rendering */}
+      {project.image && (
+        <div className="relative overflow-hidden h-56 flex-shrink-0">
+          <img 
+            src={project.image} 
+            alt={project.title} 
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
         </div>
-
-        {/* Star Icon */}
-        <div className="absolute top-4 left-4 z-10">
-          <Star className="text-yellow-400 fill-yellow-400 drop-shadow-lg" size={20} />
-        </div>
-      </div>
+      )}
 
       {/* Content */}
-      <div className="p-6 flex flex-col justify-between">
-        <div>
-          <h3 className="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">{project.title}</h3>
-          <p className="text-sm text-gray-400 mb-6 line-clamp-2">{project.description}</p>
+      <div className="p-6 flex flex-col flex-1">
+        <div className="mb-4">
+          <h3 className="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors line-clamp-1">
+            {project.title}
+          </h3>
+          <p className="text-sm text-gray-400 line-clamp-2 h-10">
+            {project.description}
+          </p>
         </div>
 
-        <div className="mt-auto">
+        <div className="mt-auto space-y-6">
           {/* Progress Bar */}
-          <div className="flex items-center justify-between text-xs text-gray-400 mb-2">
-            <span>Progress</span>
-            <span>{project.progress}%</span>
-          </div>
-          <div className="w-full h-1.5 bg-white/10 rounded-full mb-6 overflow-hidden">
-            <div 
-              className="h-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full" 
-              style={{ width: `${project.progress}%` }}
-            />
+          <div className="space-y-2">
+            <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-gray-500">
+              <span>Progress</span>
+              <span className="text-blue-400">{project.progress}%</span>
+            </div>
+            <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+              <motion.div 
+                initial={{ width: 0 }}
+                whileInView={{ width: `${project.progress}%` }}
+                transition={{ duration: 1, ease: "easeOut" }}
+                className="h-full bg-gradient-to-r from-blue-500 to-cyan-400" 
+              />
+            </div>
           </div>
 
           {/* Tags */}
           <div className="flex flex-wrap gap-2">
             {project.tags.map((tag, i) => (
-              <span key={i} className="px-3 py-1 bg-white/5 border border-white/10 rounded-md text-xs text-gray-300">
+              <span key={i} className="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-[10px] font-medium text-gray-300">
                 {tag}
               </span>
             ))}

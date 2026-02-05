@@ -50,6 +50,46 @@ const TESTIMONIALS = [
     avatarUrl:
       "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&auto=format&fit=crop&q=60",
   },
+  {
+    id: "testimonial-5",
+    name: "James S.",
+    profession: "Frontend Developer",
+    rating: 5,
+    description:
+      "Their innovative solutions and quick turnaround time made our collaboration incredibly successful. Highly recommended!",
+    avatarUrl:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=600&auto=format&fit=crop",
+  },
+  {
+    id: "testimonial-6",
+    name: "Jessica H.",
+    profession: "Web Designer",
+    rating: 4.5,
+    description:
+      "The attention to detail and user experience in their work is exceptional. I'm thoroughly impressed with the final product.",
+    avatarUrl:
+      "https://plus.unsplash.com/premium_photo-1690407617542-2f210cf20d7e?w=600&auto=format&fit=crop&q=60",
+  },
+  {
+    id: "testimonial-7",
+    name: "Lisa M.",
+    profession: "UX Designer",
+    rating: 5,
+    description:
+      "Working with them was a game-changer for our project. Their expertise and professionalism exceeded our expectations.",
+    avatarUrl:
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop&q=60",
+  },
+  {
+    id: "testimonial-8",
+    name: "Jane D.",
+    profession: "UI/UX Designer",
+    rating: 4.5,
+    description:
+      "The quality of work and communication throughout the project was outstanding. They delivered exactly what we needed.",
+    avatarUrl:
+      "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&auto=format&fit=crop&q=60",
+  },
 ];
 
 export default function Testimonials() {
@@ -74,8 +114,8 @@ export default function Testimonials() {
               </p>
             </div>
 
-            <div className="relative w-full flex justify-center h-[380px] sm:h-[480px]">
-              <CardsContainer className="w-full max-w-[300px] sm:max-w-[420px] h-full relative">
+            <div className="relative w-full flex justify-center h-[380px] md:h-[350px] lg:h-[400px] xl:h-[450px] mt-12">
+              <CardsContainer className="w-full max-w-[300px] md:max-w-[350px] lg:max-w-[380px] xl:max-w-[420px] h-full relative">
                 {TESTIMONIALS.map((testimonial, index) => (
                   <CardTransformed
                     arrayLength={TESTIMONIALS.length}

@@ -124,21 +124,29 @@ export default function Services() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative pt-40 pb-20 z-10 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto text-center">
+      <section className="relative min-h-screen flex justify-center items-center pt-40 pb-20 z-10 px-4 sm:px-6 lg:px-8"
+               style={{backgroundImage: "url('/services.jpeg')", backgroundSize: "cover", backgroundPosition: "center"}}
+      >
+        {/* Dark Overlay for Readability */}
+        <div className="absolute inset-0 bg-black/50 z-0" />
+        
+        {/* Bottom Fade to Black */}
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black via-black/80 to-transparent z-0" />
+        
+        <div className="max-w-7xl mx-auto text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight text-white leading-tight">
-              <RevealText className="block mb-2">Building Digital Excellence for</RevealText>
-              <RevealText className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight text-center text-white leading-tight drop-shadow-lg">
+              <RevealText className="block mb-2 py-3" width="100%">Building Digital Excellence for</RevealText>
+              <RevealText className="block text-transparent pb-3 bg-clip-text bg-gradient-to-r from-cyan-300 via-blue-500 to-indigo-500 drop-shadow-none filter brightness-110" width="100%">
                 Visionary Companies
               </RevealText>
             </h1>
-            <Reveal delay={0.2}>
-                <p className="text-gray-400 max-w-2xl mx-auto text-lg md:text-xl font-medium mb-10">
+            <Reveal delay={0.2} width="100%">
+                <p className="text-gray-200 max-w-2xl mx-auto text-lg md:text-xl font-medium mb-10 drop-shadow-md">
                 We transform ideas into powerful digital realities. From web & mobile apps to complex backend systems, we deliver engineering tailored for your growth.
                 </p>
             </Reveal>
@@ -146,7 +154,7 @@ export default function Services() {
               href="/contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-100 transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-100 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.3)]"
             >
               Get a Free Consultation
               <ArrowRight className="size-4" />
@@ -160,7 +168,7 @@ export default function Services() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <RevealText><h2 className="text-3xl md:text-5xl font-bold mb-4">Our Expertise</h2></RevealText>
-            <Reveal delay={0.1}><p className="text-gray-400">Comprehensive solutions for every stage of your digital journey.</p></Reveal>
+            <Reveal delay={0.1} width="100%"><p className="text-gray-400">Comprehensive solutions for every stage of your digital journey.</p></Reveal>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -197,7 +205,7 @@ export default function Services() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
             <RevealText><h2 className="text-3xl md:text-5xl font-bold mb-4">How We Work</h2></RevealText>
-            <Reveal delay={0.1}><p className="text-gray-400">A streamlined process designed for efficiency and transparency.</p></Reveal>
+            <Reveal delay={0.1} width="100%"><p className="text-gray-400">A streamlined process designed for efficiency and transparency.</p></Reveal>
           </div>
 
           <div className="relative">
@@ -231,7 +239,7 @@ export default function Services() {
         <div className="max-w-7xl mx-auto">
            <div className="text-center mb-16">
             <RevealText><h2 className="text-3xl md:text-5xl font-bold mb-4">Core Technologies</h2></RevealText>
-            <Reveal delay={0.1}><p className="text-gray-400">We build with the best tools in the industry to ensure modern, future-proof results.</p></Reveal>
+            <Reveal delay={0.1} width="100%"><p className="text-gray-400">We build with the best tools in the industry to ensure modern, future-proof results.</p></Reveal>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -313,7 +321,7 @@ export default function Services() {
           <RevealText>
             <h2 className="text-4xl md:text-6xl font-bold mb-8">Ready to Build Something Amazing?</h2>
           </RevealText>
-          <Reveal delay={0.1}>
+          <Reveal delay={0.1} width="100%">
             <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
                 Let's discuss your project and see how we can bring your vision to life. No commitment, just a friendly chat.
             </p>

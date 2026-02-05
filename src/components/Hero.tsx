@@ -1,11 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import { ArrowRight, Sparkles } from "lucide-react";
 import Hero3D from "./ui/Hero3D";
 
-interface HeroProps {
-  onNavigate: (page: string) => void;
-}
+export default function Hero() {
+  const navigate = useNavigate();
 
-export default function Hero({ onNavigate }: HeroProps) {
   return (
     <section
       className="relative min-h-screen flex items-center justify-center 
@@ -43,7 +42,7 @@ export default function Hero({ onNavigate }: HeroProps) {
           style={{ animationDelay: "0.4s" }}
         >
           <button
-            onClick={() => onNavigate("services")}
+            onClick={() => navigate("/services")}
             className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold
             rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 flex items-center gap-2 
             hover:scale-105"
@@ -56,7 +55,7 @@ export default function Hero({ onNavigate }: HeroProps) {
           </button>
 
           <button
-            onClick={() => onNavigate("contact")}
+            onClick={() => navigate("/contact")}
             className="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/20 text-white font-semibold 
             rounded-lg hover:bg-white/10 transition-all duration-300 hover:scale-105"
           >

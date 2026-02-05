@@ -1,13 +1,22 @@
-import { Target, Eye, TrendingUp } from 'lucide-react';
+
+import {
+  Target,
+  Eye,
+  TrendingUp,
+  Lightbulb,
+  Award,
+  ShieldCheck,
+  Users
+} from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Suspense, lazy, memo } from 'react';
-import { Reveal, RevealText } from '../components/ui/RevealText';
+import { Suspense, lazy, memo, ReactNode } from 'react';
+import { Reveal } from '../components/ui/RevealText';
 
 // Lazy load heavy 3D components
 const StatsVisualization3D = lazy(() => import('../components/about/StatsVisualization3D').then(m => ({ default: m.default })));
 const ParticleTimeline = lazy(() => import('../components/about/ParticleTimeline').then(m => ({ default: m.default })));
 const AnimatedValueCard = lazy(() => import('../components/about/AnimatedValueCard').then(m => ({ default: m.default })));
-const HolographicCard = lazy(() => import('../components/about/HolographicCard').then(m => ({ default: m.default })));
+const AlternatingValueRow = lazy(() => import('../components/about/AlternatingValueRow').then(m => ({ default: m.default })));
 
 // Loading fallback
 const ComponentLoader = () => (
@@ -32,40 +41,41 @@ export default function About() {
     { number: '50+', label: 'Team Members' },
   ];
 
-  const values = [
-    { 
-      title: 'Innovation', 
-      desc: 'Pushing boundaries with cutting-edge solutions', 
-      icon: '💡',
-      back: 'We constantly explore new technologies and methodologies to deliver innovative solutions that set industry standards.'
+  const values: Array<{ title: string; desc: string; icon: ReactNode; imageUrl: string; back: string }> = [
+    {
+      title: 'Innovation',
+      desc: 'Innovation is the heartbeat of Vedseem. We don\'t just follow trends; we create them by pushing the boundaries of what\'s possible in the digital landscape.',
+      icon: <Lightbulb className="text-yellow-400" size={32} />,
+      imageUrl: '/innovation.jpeg',
+      back: 'We leverage AI, cloud computing, and advanced analytics to deliver pioneering solutions that set new industry benchmarks for our global clients.'
     },
-    { 
-      title: 'Excellence', 
-      desc: 'Delivering quality that exceeds expectations', 
-      icon: '⭐',
-      back: 'Our commitment to excellence drives us to deliver exceptional results in every project we undertake.'
+    {
+      title: 'Excellence',
+      desc: 'At Vedseem, excellence is a habit. We are committed to delivering exceptional quality that consistently exceeds expectations and drives real business impact.',
+      icon: <Award className="text-blue-400" size={32} />,
+      imageUrl: '/excellence.jpeg',
+      back: 'Our rigorous quality assurance processes and focus on scalable architecture ensure that every project we deliver is robust, performant, and future-proof.'
     },
-    { 
-      title: 'Integrity', 
-      desc: 'Building trust through transparency and honesty', 
-      icon: '🤝',
-      back: 'We build lasting relationships through honest communication and ethical business practices.'
+    {
+      title: 'Integrity',
+      desc: 'Building lasting trust is the foundation of our success. We operate with unwavering transparency, honesty, and ethical standards in every client partnership.',
+      icon: <ShieldCheck className="text-green-400" size={32} />,
+      imageUrl: '/integration.jpeg',
+      back: 'We believe in honest communication and ethical business practices. Our transparent approach ensures our clients are always informed and fully involved.'
     },
-    { 
-      title: 'Collaboration', 
-      desc: 'Working together to achieve shared success', 
-      icon: '🚀',
-      back: 'Teamwork and partnership are at the heart of everything we do, ensuring collective success.'
+    {
+      title: 'Collaboration',
+      desc: 'We believe that the best results come from working together. Our collaborative culture fosters seamless teamwork between our experts and our clients.',
+      icon: <Users className="text-purple-400" size={32} />,
+      imageUrl: '/collaboration.jpeg',
+      back: 'Success is a shared journey. We partner closely with our clients to align our technical expertise with their unique business goals for maximum impact.'
     },
   ];
 
   return (
     <>
       <style>{`
-        body {
-          background-color: #000000 !important;
-        }
-        html {
+        body, html {
           background-color: #000000 !important;
         }
       `}</style>
@@ -73,109 +83,125 @@ export default function About() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="min-h-screen text-white pt-20 overflow-hidden relative"
-        style={{ 
-          backgroundColor: '#000000',
-        }}
+        className="min-h-screen text-white overflow-hidden relative"
       >
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20"
-      >
-        {/* Hero Section - Optimized */}
+        {/* Full-width Hero Section */}
         <HeroSection />
 
-        {/* Mission, Vision, Growth - Optimized Cards */}
-        <MissionVisionSection />
+        <motion.div
+           initial={{ opacity: 0, y: 20 }}
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+           className="max-w-[90%] mx-auto px-4 md:px-6 lg:px-8 py-20 relative z-10"
+        >
+          {/* Mission, Vision, Growth */}
+          <MissionVisionSection />
 
-        {/* Core Values - Optimized */}
-        <CoreValuesSection values={values} />
+          {/* Core Values Section */}
+          <CoreValuesSection values={values} />
 
-        {/* Journey Timeline - Lazy Loaded */}
-        <Suspense fallback={<ComponentLoader />}>
-          <ParticleTimeline timeline={timeline} />
-        </Suspense>
+          {/* Journey Timeline - Lazy Loaded */}
+          <Suspense fallback={<ComponentLoader />}>
+            <ParticleTimeline timeline={timeline} />
+          </Suspense>
 
-        {/* Stats Section - Lazy Loaded */}
-        <Suspense fallback={<ComponentLoader />}>
-          <StatsVisualization3D stats={stats} />
-        </Suspense>
-      </motion.div>
+          {/* Stats Section - Lazy Loaded */}
+          <Suspense fallback={<ComponentLoader />}>
+            <StatsVisualization3D stats={stats} />
+          </Suspense>
+        </motion.div>
 
       {/* Optimized Background */}
-      <OptimizedBackground />
+      <PremiumBackground />
       </motion.div>
     </>
   );
 }
 
-// Vedseem Reveal Animation Component
-const VedseemReveal = memo(() => {
+// Amazing Title Animation
+const AmazingTitle = memo(() => {
+  const text1 = "About";
+  const text2 = "Vedseem";
+  
+  const charVariants = {
+    hidden: { opacity: 0, rotateX: 90, y: 50 },
+    visible: (i: number) => ({
+      opacity: 1,
+      rotateX: 0,
+      y: 0,
+      transition: {
+        type: "spring" as const,
+        damping: 12,
+        stiffness: 100,
+        delay: i * 0.05
+      }
+    })
+  };
+
   return (
-    <div className="relative inline-block">
-      {/* Base gradient text (always visible) */}
-      <h1 className="text-7xl md:text-9xl font-black relative z-10">
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400">
-          Vedseem
-        </span>
-      </h1>
-      
-      {/* Reveal sweep overlay */}
-      <motion.div
-        className="absolute inset-0 overflow-hidden z-20"
-        initial={{ clipPath: 'inset(0 100% 0 0)' }}
-        animate={{ clipPath: 'inset(0 0 0 0)' }}
-        transition={{ 
-          duration: 1.2, 
-          delay: 0.4,
-          ease: [0.25, 0.1, 0.25, 1]
-        }}
-        style={{ willChange: 'clip-path' }}
-      >
-        <h1 className="text-7xl md:text-9xl font-black">
-          <motion.span
-            className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-blue-300 to-cyan-300"
-            initial={{ opacity: 0.8 }}
-            animate={{ opacity: [0.8, 1, 0.8] }}
-            transition={{ 
-              duration: 1.2,
-              delay: 0.4,
-              times: [0, 0.5, 1]
-            }}
-          >
-            Vedseem
-          </motion.span>
-        </h1>
-      </motion.div>
-      
-      {/* Glow pulse effect */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none z-0"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ 
-          opacity: [0, 0.5, 0.2, 0],
-          scale: [0.9, 1.1, 1, 1]
-        }}
-        transition={{ 
-          duration: 1.8,
-          delay: 0.4,
-          times: [0, 0.3, 0.7, 1],
-          ease: "easeOut"
-        }}
-        style={{ willChange: 'opacity, transform' }}
-      >
-        <h1 className="text-7xl md:text-9xl font-black">
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 blur-lg">
-            Vedseem
-          </span>
-        </h1>
-      </motion.div>
+    <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 mb-8 perspective-[1000px]">
+       <div className="flex">
+         {text1.split("").map((char, i) => (
+           <motion.span 
+             key={`t1-${i}`}
+             custom={i}
+             variants={charVariants}
+             initial="hidden"
+             whileInView="visible"
+             viewport={{ once: true }}
+             className="text-6xl md:text-8xl lg:text-9xl font-bold text-gray-300 inline-block origin-bottom transition-all duration-300 hover:text-white"
+           >
+             {char}
+           </motion.span>
+         ))}
+       </div>
+       <div className="flex">
+         {text2.split("").map((char, i) => (
+           <motion.span 
+             key={`t2-${i}`}
+             custom={i + text1.length} 
+             variants={charVariants}
+             initial="hidden"
+             whileInView="visible"
+             viewport={{ once: true }}
+             className="text-6xl md:text-8xl lg:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 inline-block origin-bottom drop-shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all duration-300 hover:scale-110"
+           >
+             {char}
+           </motion.span>
+         ))}
+       </div>
     </div>
   );
 });
-VedseemReveal.displayName = 'VedseemReveal';
+AmazingTitle.displayName = 'AmazingTitle';
+
+// Flip Word Paragraph
+const FlipWordText = memo(({ text, className }: { text: string; className?: string }) => {
+  return (
+    <div className={className} style={{ perspective: "1000px" }}>
+      {text.split(" ").map((word, i) => (
+        <motion.span
+          key={i}
+          initial={{ opacity: 0, rotateX: -90, y: 20 }}
+          whileInView={{ opacity: 1, rotateX: 0, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ 
+            duration: 0.5, 
+            delay: i * 0.03,
+            type: "spring",
+            damping: 14,
+            stiffness: 120
+          }}
+          className="inline-block mr-[0.3em] origin-top text-gray-200 drop-shadow-lg"
+          style={{ backfaceVisibility: "hidden" }}
+        >
+          {word}
+        </motion.span>
+      ))}
+    </div>
+  );
+});
+FlipWordText.displayName = 'FlipWordText';
 
 // Optimized Hero Section
 const HeroSection = memo(() => {
@@ -184,35 +210,33 @@ const HeroSection = memo(() => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="relative text-center mb-32"
-      style={{ willChange: 'opacity' }}
+      className="relative text-center mb-16 min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* <Suspense fallback={null}>
-        <FloatingGeometry />
-      </Suspense> */}
+      {/* Background with fallback */}
+      <div 
+        className="absolute inset-0 z-0 bg-slate-950"
+        style={{
+          backgroundImage: "url('/about.jpeg'), linear-gradient(to bottom, #0f172a, #000000)",
+          backgroundSize: "cover",
+          backgroundPosition: "center"
+        }}
+      />
+      
+      {/* Dark Overlay for Readability - Lightened for better visibility */}
+      <div className="absolute inset-0 bg-black/40 z-0" />
+      
+      {/* Bottom Fade to Black */}
+      <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-black via-black/80 to-transparent z-0" />
 
-      <div className="relative z-10">
-        <Reveal className="inline-block mb-4">
-          <h1 className="text-6xl md:text-9xl font-bold text-gray-300">
-            About<span className='opacity-0 text-5xl'>w</span> 
-          </h1>
-        </Reveal>
+      <div className="relative z-10 py-20 px-4">
+        <AmazingTitle />
 
-        <div className="relative inline-block mb-8">
-            <Reveal delay={0.1}>
-                 <VedseemReveal />
-            </Reveal>
+        <div className="max-w-4xl mx-auto">
+           <FlipWordText 
+            text="We are a forward-thinking technology company dedicated to transforming businesses through innovative IT solutions and cutting-edge software development."
+            className="text-xl md:text-2xl leading-relaxed font-medium"
+           />
         </div>
-
-        <Reveal 
-          delay={0.2}
-          className="inline-block p-8 rounded-3xl bg-gradient-to-br from-blue-500/10 via-cyan-500/5 to-blue-500/10 backdrop-blur-xl border border-blue-500/20 shadow-2xl shadow-blue-500/20"
-        >
-          <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            We are a forward-thinking technology company dedicated to transforming businesses
-            through innovative IT solutions and cutting-edge software development.
-          </p>
-        </Reveal>
       </div>
     </motion.div>
   );
@@ -263,31 +287,30 @@ const MissionVisionSection = memo(() => {
 MissionVisionSection.displayName = 'MissionVisionSection';
 
 // Optimized Core Values Section
-const CoreValuesSection = memo(({ values }: { values: Array<{ title: string; desc: string; icon: string; back: string }> }) => {
+const CoreValuesSection = memo(({ values }: { values: Array<{ title: string; desc: string; icon: ReactNode; imageUrl: string; back: string }> }) => {
   return (
-    <div className="mb-32">
-      <RevealText className="block text-center mb-12">
-        <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-            Our Core Values
-        </h2>
-      </RevealText>
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="mt-32 mb-48">
+      <div className="text-center mb-24">
+        <Reveal width="100%">
+          <h2 className="text-5xl lg xl:text-8xl font-black bg-gradient-to-b from-white via-white to-gray-500 bg-clip-text text-transparent tracking-tighter">
+              Our Core Values
+          </h2>
+        </Reveal>
+   
+      </div>
+      
+      <div className="space-y-12">
         {values.map((value, index) => (
-          <Reveal
-            key={index}
-            delay={index * 0.1}
-            width="100%"
-          >
-            <Suspense fallback={<ComponentLoader />}>
-                <HolographicCard
-                icon={value.icon}
-                title={value.title}
-                description={value.desc}
-                backContent={value.back}
-                index={index}
-                />
-            </Suspense>
-          </Reveal>
+          <Suspense key={index} fallback={<ComponentLoader />}>
+            <AlternatingValueRow
+              title={value.title}
+              desc={value.desc}
+              icon={value.icon}
+              imageUrl={value.imageUrl}
+              back={value.back}
+              index={index}
+            />
+          </Suspense>
         ))}
       </div>
     </div>
@@ -295,12 +318,96 @@ const CoreValuesSection = memo(({ values }: { values: Array<{ title: string; des
 });
 CoreValuesSection.displayName = 'CoreValuesSection';
 
-// Optimized Background - Reduced animation complexity
-const OptimizedBackground = memo(() => {
+// Floating Particles Component
+// const FloatingParticles = () => {
+//   return (
+//     <div className="absolute inset-0 overflow-hidden pointer-events-none">
+//       {[...Array(40)].map((_, i) => (
+//         <motion.div
+//           key={i}
+//           initial={{ 
+//             opacity: Math.random() * 0.4 + 0.1,
+//             scale: Math.random() * 0.8 + 0.2,
+//             x: Math.random() * 100 + "%",
+//             y: Math.random() * 100 + "%"
+//           }}
+//           animate={{ 
+//             x: [
+//               Math.random() * 100 + "%", 
+//               Math.random() * 100 + "%", 
+//               Math.random() * 100 + "%"
+//             ],
+//             y: [
+//               Math.random() * 100 + "%", 
+//               Math.random() * 100 + "%", 
+//               Math.random() * 100 + "%"
+//             ],
+//             opacity: [0.1, 0.4, 0.1],
+//             scale: [0.5, 1, 0.5]
+//           }}
+//           transition={{ 
+//             duration: Math.random() * 30 + 30, 
+//             repeat: Infinity, 
+//             ease: "linear" 
+//           }}
+//           className={`absolute rounded-full blur-[2px] ${
+//             i % 3 === 0 ? 'w-2 h-2 bg-blue-500/40 shadow-[0_0_10px_rgba(59,130,246,0.3)]' : 
+//             'w-1 h-1 bg-cyan-400/30'
+//           }`}
+//         />
+//       ))}
+//     </div>
+//   );
+// };
+
+// Enhanced Premium Background with moving elements
+const PremiumBackground = memo(() => {
   return (
-    <div className="fixed inset-0 -z-20 overflow-hidden pointer-events-none">
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-950 via-black to-cyan-950" />
+    <div className="fixed inset-0 -z-20 overflow-hidden pointer-events-none bg-black">
+      {/* Animated Mesh Gradient Blobs */}
+      <motion.div 
+        animate={{
+          scale: [1, 1.2, 1],
+          x: [0, 100, 0],
+          y: [0, 50, 0],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "linear"
+        }}
+        className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] bg-blue-900/20 blur-[120px] rounded-full" 
+      />
+      <motion.div 
+        animate={{
+          scale: [1.2, 1, 1.2],
+          x: [0, -100, 0],
+          y: [0, -50, 0],
+        }}
+        transition={{
+          duration: 25,
+          repeat: Infinity,
+          ease: "linear"
+        }}
+        className="absolute bottom-[-10%] left-[-10%] w-[60%] h-[60%] bg-cyan-900/20 blur-[120px] rounded-full" 
+      />
+      
+      {/* Moving Particles */}
+      {/* <FloatingParticles /> */}
+      
+      {/* Subtle Grid Pattern Overlay */}
+      <div 
+        className="absolute inset-0 opacity-[0.10]" 
+        style={{ 
+          backgroundImage: `radial-gradient(#3b82f6 0.5px, transparent 0.5px), radial-gradient(#3b82f6 0.5px, transparent 0.5px)`,
+          backgroundSize: '40px 40px',
+          backgroundPosition: '0 0, 20px 20px'
+        }} 
+      />
+
+      {/* Deep Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black" />
     </div>
   );
 });
-OptimizedBackground.displayName = 'OptimizedBackground';
+PremiumBackground.displayName = 'PremiumBackground';

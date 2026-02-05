@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -7,16 +8,27 @@ import Services from './pages/Services';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 
-function App() {
-  const [currentPage, setCurrentPage] = useState('home');
+function ScrollToTop() {
+  const { pathname } = useLocation();
 
-
-
-  const handleNavigate = (page: string) => {
-    setCurrentPage(page);
-    // Instant scroll to top on page change
+  useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [pathname]);
+
+  return null;
+}
+
+function App() {
+  const location = useLocation();
+  
+  // Extract current page name from path for Navbar highlighting
+  const getCurrentPage = () => {
+    const path = location.pathname;
+    if (path === '/') return 'home';
+    return path.substring(1); // remove leading slash
   };
+  
+  const currentPage = getCurrentPage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,32 +46,21 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'home':
-        return <Home onNavigate={handleNavigate} />;
-      case 'about':
-        return <About />;
-      case 'services':
-        return <Services />;
-      case 'projects':
-        return <Projects />;
-      case 'contact':
-        return <Contact />;
-      default:
-        return <Home onNavigate={handleNavigate} />;
-    }
-  };
-
-  // if (loading) {
-  //   return <Loader onComplete={handleLoadingComplete} />;
-  // }
-
   return (
     <div className="min-h-screen bg-black">
-      <Navbar currentPage={currentPage} onNavigate={handleNavigate} />
-      <main>{renderPage()}</main>
-      <Footer onNavigate={handleNavigate} />
+      <ScrollToTop />
+      <Navbar currentPage={currentPage} />
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </main>
+      <Footer />
     </div>
   );
 }

@@ -18,7 +18,10 @@ export const RevealText = ({
   width = "fit-content" 
 }: RevealTextProps) => {
   return (
-    <div style={{ width }} className={cn("overflow-hidden relative inline-block", className)}>
+    <div 
+      style={{ width, scrollbarWidth: 'none', msOverflowStyle: 'none' }} 
+      className={cn("overflow-hidden relative inline-block [&::-webkit-scrollbar]:hidden", className)}
+    >
       <motion.div
         initial={{ y: "100%" }}
         whileInView={{ y: 0 }}
@@ -38,7 +41,10 @@ export const Reveal = ({
     width = "fit-content" 
   }: RevealTextProps) => {
     return (
-      <div style={{ width }} className={cn("relative", className)}>
+      <div 
+        style={{ width, scrollbarWidth: 'none', msOverflowStyle: 'none' }} 
+        className={cn("relative [&::-webkit-scrollbar]:hidden", className)}
+      >
         <motion.div
           initial={{ opacity: 0, y: 75 }}
           whileInView={{ opacity: 1, y: 0 }}

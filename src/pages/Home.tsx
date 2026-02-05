@@ -10,60 +10,56 @@ import CylindricalPortfolio3D from "../components/CylindricalPortfolio3D";
 import SideNav from "../components/SideNav";
 import StatsVisualization3D from "../components/about/StatsVisualization3D";
 
-interface HomeProps {
-  onNavigate: (page: string) => void;
-}
-
-export default function Home({ onNavigate }: HomeProps) {
+export default function Home() {
   const [pageReady, setPageReady] = useState(false);
   const [loaderDone, setLoaderDone] = useState(false);
   const projects = [
     {
-      title: "FinTech Platform",
-    description:
-      "A comprehensive financial management platform with real-time analytics and AI-powered insights.",
-    image:
-      "https://images.pexels.com/photos/6771607/pexels-photo-6771607.jpeg?auto=compress&cs=tinysrgb&w=800",
-    tags: ["React", "Node.js", "AI/ML", "Cloud"],
-    caseStudyLink: "#",
-  },
-  {
-    title: "E-Commerce Solution",
-    description:
-      "Modern UX-driven shopping experience with personalization and seamless payments.",
-    image:
-      "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800",
-    tags: ["Next.js", "Stripe", "PostgreSQL"],
-    caseStudyLink: "#",
-  },
-  {
-    title: "Healthcare App",
-    description:
-      "HIPAA-compliant telemedicine app connecting patients with verified doctors.",
-    image:
-      "https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg?auto=compress&cs=tinysrgb&w=800",
-    tags: ["React Native", "WebRTC", "HIPAA"],
-    caseStudyLink: "#",
-  },
-  {
-    title: "SaaS Dashboard",
-    description:
-      "Real-time visual analytics and AI-enhanced forecasting for enterprises.",
-    image:
-      "https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=800",
-    tags: ["Vue.js", "D3.js", "WebSocket"],
-    caseStudyLink: "#",
-  },
-  {
-    title: "IoT Platform",
-    description:
-      "Monitor and control industrial devices processing millions of events daily.",
-    image:
-      "https://images.pexels.com/photos/442152/pexels-photo-442152.jpeg?auto=compress&cs=tinysrgb&w=800",
-    tags: ["Python", "MQTT", "TimescaleDB"],
-    caseStudyLink: "#",
-  },
-];
+      title: "Where's The Fork",
+      description:
+        "A food truck franchise platform designed to manage multiple vendors, locations, and menus while enabling customers to discover nearby trucks and place orders easily.",
+      image:
+        "https://images.pexels.com/photos/442152/pexels-photo-442152.jpeg?auto=compress&cs=tinysrgb&w=800",
+      tags: ["Next Js", "Node Js", "Javascript", "Tailwind CSS", "MongoDB", "Express"],
+      caseStudyLink: "#",
+    },
+    {
+      title: "Knect Hotel",
+      description:
+        "A hotel management and booking solution that streamlines reservations, room availability, guest management, and day-to-day hotel operations.",
+      image:
+        "https://images.pexels.com/photos/6771607/pexels-photo-6771607.jpeg?auto=compress&cs=tinysrgb&w=800",
+      tags: ["Next Js", "Node Js", "Javascript", "Tailwind CSS", "MongoDB", "Express"],
+      caseStudyLink: "#",
+    },
+    {
+      title: "Dhanush Digital",
+      description:
+        "A scalable e-commerce platform built to support online product listings, secure payments, order management, and a seamless shopping experience for customers.",
+      image:
+        "https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg?auto=compress&cs=tinysrgb&w=800",
+      tags: ["React", "Javascript", "Tailwind CSS", "MongoDB", "Express"],
+      caseStudyLink: "#",
+    },
+    {
+      title: "Bundelkhand Chamber of Commerce",
+      description:
+        "An official digital platform for the regional chamber of commerce, enabling business registrations, event management, announcements, and member networking.",
+      image:
+        "https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=800",
+      tags: ["Next Js", "Node Js", "Javascript", "Tailwind CSS", "MongoDB", "Express"],
+      caseStudyLink: "#",
+    },
+    {
+      title: "Gunno Media Productions",
+      description:
+        "A media and production company website showcasing portfolios, projects, and creative services with a strong emphasis on visual storytelling.",
+      image:
+        "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800",
+      tags: ["React", "Javascript", "Tailwind CSS", "Framer-Motion", "Nodemailer"],
+      caseStudyLink: "#",
+    },
+  ];
 
   useEffect(() => {
     setPageReady(true);
@@ -105,7 +101,7 @@ export default function Home({ onNavigate }: HomeProps) {
       >
         <SideNav />
         <div id="hero">
-          <Hero onNavigate={onNavigate} />
+          <Hero />
         </div>
 
         {/* Stats Section */}

@@ -19,48 +19,48 @@ export default function AnimatedProjects() {
 
   const projects: Project[] = [
     {
-      title: "FinTech Platform",
+      title: "Where's The Fork",
       description:
-        "A comprehensive financial management platform with real-time analytics and AI-powered insights.",
-      image:
-        "https://images.pexels.com/photos/6771607/pexels-photo-6771607.jpeg?auto=compress&cs=tinysrgb&w=800",
-      tags: ["React", "Node.js", "AI/ML", "Cloud"],
-      caseStudyLink: "#",
-    },
-    {
-      title: "E-Commerce Solution",
-      description:
-        "Modern UX-driven shopping experience with personalization and seamless payments.",
-      image:
-        "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800",
-      tags: ["Next.js", "Stripe", "PostgreSQL"],
-      caseStudyLink: "#",
-    },
-    {
-      title: "Healthcare App",
-      description:
-        "HIPAA-compliant telemedicine app connecting patients with verified doctors.",
-      image:
-        "https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg?auto=compress&cs=tinysrgb&w=800",
-      tags: ["React Native", "WebRTC", "HIPAA"],
-      caseStudyLink: "#",
-    },
-    {
-      title: "SaaS Dashboard",
-      description:
-        "Real-time visual analytics and AI-enhanced forecasting for enterprises.",
-      image:
-        "https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=800",
-      tags: ["Vue.js", "D3.js", "WebSocket"],
-      caseStudyLink: "#",
-    },
-    {
-      title: "IoT Platform",
-      description:
-        "Monitor and control industrial devices processing millions of events daily.",
+        "A food truck franchise platform designed to manage multiple vendors, locations, and menus while enabling customers to discover nearby trucks and place orders easily.",
       image:
         "https://images.pexels.com/photos/442152/pexels-photo-442152.jpeg?auto=compress&cs=tinysrgb&w=800",
       tags: ["Python", "MQTT", "TimescaleDB"],
+      caseStudyLink: "#",
+    },
+    {
+      title: "Knect Hotel",
+      description:
+        "A hotel management and booking solution that streamlines reservations, room availability, guest management, and day-to-day hotel operations.",
+      image:
+        "https://images.pexels.com/photos/6771607/pexels-photo-6771607.jpeg?auto=compress&cs=tinysrgb&w=800",
+      tags: ["React", "Node.js", "Cloud"],
+      caseStudyLink: "#",
+    },
+    {
+      title: "Dhanush Digital",
+      description:
+        "A scalable e-commerce platform built to support online product listings, secure payments, order management, and a seamless shopping experience for customers.",
+      image:
+        "https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg?auto=compress&cs=tinysrgb&w=800",
+      tags: ["React", "E-commerce", "Payments"],
+      caseStudyLink: "#",
+    },
+    {
+      title: "Bundelkhand Chamber of Commerce",
+      description:
+        "An official digital platform for the regional chamber of commerce, enabling business registrations, event management, announcements, and member networking.",
+      image:
+        "https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=800",
+      tags: ["Vue.js", "CMS", "WebSocket"],
+      caseStudyLink: "#",
+    },
+    {
+      title: "Gunno Media Productions",
+      description:
+        "A media and production company website showcasing portfolios, projects, and creative services with a strong emphasis on visual storytelling.",
+      image:
+        "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800",
+      tags: ["Next.js", "Media", "PostgreSQL"],
       caseStudyLink: "#",
     },
   ];
@@ -240,6 +240,25 @@ export default function AnimatedProjects() {
         .thumb-card:hover {
           transform: scale(1.05);
           border-color: rgba(59, 130, 246, 0.6);
+        }
+
+        .thumb-desc {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: linear-gradient(to top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.7), transparent);
+          padding: 8px 6px 4px;
+          opacity: 0;
+          transform: translateY(10px);
+          transition: all 0.3s ease;
+          pointer-events: none;
+        }
+
+        .thumb-card:hover .thumb-desc {
+          opacity: 1;
+          transform: translateY(0);
+          pointer-events: auto;
         }
 
         .thumb-card::after {
@@ -436,13 +455,18 @@ export default function AnimatedProjects() {
                     alt={project.title}
                     className="thumb-img"
                   />
+                  <div className="thumb-desc">
+                    <p className="text-white text-[10px] font-semibold leading-tight line-clamp-2">
+                      {project.title}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
 
             {/* Navigation */}
             <button
-              onClick={goNext}
+              onClick={goPrev}
               disabled={isTransitioning}
               className="absolute top-1/2 -translate-y-1/2 -left-3 md:left-6
   flex items-center justify-center rounded-full
@@ -451,7 +475,7 @@ export default function AnimatedProjects() {
   sm:w-12 sm:h-12   /* small tablets */
   md:w-14 md:h-14   /* tablets */
   shadow-lg transition-transform duration-300 active:scale-90"
-              aria-label="Next"
+              aria-label="Previous"
             >
               <ArrowLeft size={22} className="size-8" />
             </button>

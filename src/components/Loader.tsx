@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface LoaderProps {
@@ -7,151 +7,132 @@ interface LoaderProps {
 }
 
 const TARGET_TEXT = "VEDSEEM";
-const BOOT_SEQUENCE = [
-  "> INITIALIZING KERNEL...",
-  "> LOADING MODULES...",
-  "> VERIFYING SECURITY...",
-  "> SYSTEM READY."
-];
-const CHARS = "!@#$%^&*()_+-=[]{}|;:,.<>/?0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 export default function Loader({ pageReady, onComplete }: LoaderProps) {
-  const [displayText, setDisplayText] = useState("");
   const [isExiting, setIsExiting] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [bootLine, setBootLine] = useState(0);
-  const [showMainContent, setShowMainContent] = useState(false);
+  const [particlesActive, setParticlesActive] = useState(false);
+  const [animComplete, setAnimComplete] = useState(false);
 
-  // Boot Sequence
+  // Completion & Particle Trigger
   useEffect(() => {
-    const interval = setInterval(() => {
-      setBootLine(prev => {
-        if (prev < BOOT_SEQUENCE.length - 1) return prev + 1;
-        clearInterval(interval);
-        setTimeout(() => setShowMainContent(true), 200); // Trigger main content
-        return prev;
-      });
-    }, 150); // Speed of boot lines
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // Decoding Effect (Triggers after boot)
-  useEffect(() => {
-    if (!showMainContent) return;
-
-    let iteration = 0;
-    const interval = setInterval(() => {
-      setDisplayText((prev) => 
-        TARGET_TEXT
-          .split("")
-          .map((letter, index) => {
-            if (index < iteration) {
-              return TARGET_TEXT[index];
-            }
-            return CHARS[Math.floor(Math.random() * CHARS.length)];
-          })
-          .join("")
-      );
-
-      if (iteration >= TARGET_TEXT.length) { 
-        clearInterval(interval);
-      }
-      
-      iteration += 1/3; 
-    }, 30);
-
-    return () => clearInterval(interval);
-  }, [showMainContent]);
-
-  // Progress Bar
-  useEffect(() => {
-    if (!showMainContent) return;
-    
-    const timer = setInterval(() => {
-        setProgress(old => {
-            if (old >= 90) return old;
-            const diff = Math.random() * 10;
-            return Math.min(old + diff, 90);
-        });
-    }, 200);
-
-    return () => clearInterval(timer);
-  }, [showMainContent]);
-
-  // Completion Logic
-  useEffect(() => {
-    if (pageReady && showMainContent) {
-        setProgress(100);
+    if (pageReady && animComplete) {
         const timeout = setTimeout(() => {
-            setIsExiting(true);
-            setTimeout(onComplete, 1000);
-        }, 1200);
+            setParticlesActive(true); 
+            setTimeout(() => {
+              setIsExiting(true);
+              setTimeout(onComplete, 800);
+            }, 1000);
+        }, 800);
         return () => clearTimeout(timeout);
     }
-  }, [pageReady, showMainContent, onComplete]);
+  }, [pageReady, animComplete, onComplete]);
+
+  // Particle System Data
+  const particles = useMemo(() => {
+    return [...Array(80)].map((_, i) => ({
+      id: i,
+      x: Math.random() * 600 - 300,
+      y: Math.random() * 200 - 100,
+      size: Math.random() * 4 + 1,
+      duration: Math.random() * 1.5 + 0.8,
+      delay: Math.random() * 0.3
+    }));
+  }, []);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {!isExiting && (
         <motion.div
+           key="loader-container"
            initial={{ opacity: 1 }}
-           exit={{ opacity: 0, scale: 1.1, filter: "blur(20px)" }}
-           transition={{ duration: 0.8 }}
+           exit={{ opacity: 0, transition: { duration: 0.8 } }}
            className="fixed inset-0 z-[99999] bg-black flex flex-col items-center justify-center overflow-hidden font-sans"
         >
-            {/* Boot Sequence Overlay (fades out when main content appears) */}
-            <AnimatePresence>
-                {!showMainContent && (
-                    <motion.div 
-                        initial={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="absolute bottom-10 left-10 font-mono text-xs text-blue-500/50 flex flex-col items-start gap-1"
+            {/* Main Premium Content */}
+            <div className="z-10 relative flex flex-col items-center w-full px-4">
+                
+                {/* SVG Writing Animation */}
+                <motion.div
+                    className="relative w-full max-w-[400px] md:max-w-[900px] aspect-[4/1]"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ 
+                      opacity: particlesActive ? 0 : 1, 
+                      scale: 1,
+                      filter: particlesActive ? "blur(20px)" : "blur(0px)" 
+                    }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                >
+                    <svg
+                      width="100%"
+                      height="100%"
+                      viewBox="0 0 500 150"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="select-none uppercase overflow-visible"
                     >
-                        {BOOT_SEQUENCE.slice(0, bootLine + 1).map((line, i) => (
-                            <span key={i}>{line}</span>
+                      <defs>
+                        <linearGradient id="loaderStrokeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" stopColor="#1e40af" />
+                          <stop offset="50%" stopColor="#3b82f6" />
+                          <stop offset="100%" stopColor="#06b6d4" />
+                        </linearGradient>
+                      </defs>
+                      
+                      <motion.text
+                        x="50%"
+                        y="50%"
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                        strokeWidth="1"
+                        fontSize="90"
+                        fontFamily="Inter, sans-serif"
+                        fontWeight="900"
+                        fill="none"
+                        stroke="url(#loaderStrokeGradient)"
+                        initial={{ strokeDashoffset: 1500, strokeDasharray: 1500 }}
+                        animate={{ strokeDashoffset: 0 }}
+                        transition={{ duration: 3, ease: "easeInOut" }}
+                        onAnimationComplete={() => setAnimComplete(true)}
+                      >
+                        {TARGET_TEXT}
+                      </motion.text>
+                    </svg>
+
+                    {/* Particle Dispersion Effect */}
+                    {particlesActive && (
+                      <div className="absolute inset-0 z-20 overflow-visible pointer-events-none flex items-center justify-center">
+                        {particles.map((p) => (
+                          <motion.div
+                            key={p.id}
+                            className="absolute w-1.5 h-1.5 bg-blue-400 rounded-full"
+                            style={{
+                              boxShadow: '0 0 10px #3b82f6',
+                            }}
+                            initial={{ x: 0, y: 0, opacity: 1, scale: 1 }}
+                            animate={{ 
+                              x: p.x, 
+                              y: p.y, 
+                              opacity: 0, 
+                              scale: 0 
+                            }}
+                            transition={{ 
+                              duration: p.duration, 
+                              delay: p.delay,
+                              ease: "easeOut" 
+                            }}
+                          />
                         ))}
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                      </div>
+                    )}
+                </motion.div>
+            </div>
 
-            {/* Main Content Entrance */}
-            {showMainContent && (
-                <div className="z-10 relative text-center">
-                    <motion.div
-                        initial={{ scale: 1.5, opacity: 0, filter: "blur(10px)" }}
-                        animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
-                        transition={{ duration: 0.4, ease: "circOut" }}
-                    >
-                        <h1 className="text-6xl md:text-9xl font-black text-white tracking-widest mb-8 mix-blend-difference select-none">
-                            {displayText || "VEDSEEM"}
-                        </h1>
-                    </motion.div>
-                    
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                    >
-                        <div className="w-72 md:w-96 h-1 bg-gray-900 rounded-full overflow-hidden mx-auto mb-3 relative">
-                            <motion.div 
-                                className="h-full bg-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.8)]"
-                                initial={{ width: 0 }}
-                                animate={{ width: `${progress}%` }}
-                            />
-                        </div>
-
-                        <div className="flex justify-between w-72 md:w-96 mx-auto text-[10px] md:text-xs font-mono text-blue-500/60 uppercase tracking-widest">
-                            <span>Initializing Core...</span>
-                            <span>{Math.round(progress)}%</span>
-                        </div>
-                    </motion.div>
-                </div>
-            )}
-
-            {/* Background decorators */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/10 via-black to-black opacity-50 pointer-events-none" />
-            <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0)_0%,rgba(0,0,20,0.2)_50%,rgba(0,0,0,0)_100%)] bg-[length:100%_4px] pointer-events-none opacity-20" />
+            {/* Background Decorators */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#1e3a8a22_0%,_transparent_70%)] pointer-events-none z-0" />
+            <motion.div 
+              animate={{ opacity: [0.1, 0.2, 0.1] }}
+              transition={{ duration: 4, repeat: Infinity }}
+              className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none z-0" 
+            />
         </motion.div>
       )}
     </AnimatePresence>

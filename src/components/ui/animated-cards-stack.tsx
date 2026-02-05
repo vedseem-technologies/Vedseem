@@ -135,7 +135,7 @@ export const CardTransformed = React.forwardRef<
     const range = [start, end];
 
     // Card movements: flies up and scales down as it exits
-    const y = useTransform(scrollYProgress, range, ["0vh", "-120vh"]);
+    const y = useTransform(scrollYProgress, range, ["0vh", "-80vh"]);
     const opacity = useTransform(scrollYProgress, [start, start + 0.05, end - 0.15, end], [1, 1, 1, 0]);
     const scale = useTransform(scrollYProgress, range, [1, 0.9]);
     

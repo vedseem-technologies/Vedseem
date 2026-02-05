@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
 interface NavbarProps {
   currentPage: string;
-  onNavigate: (page: string) => void;
 }
 
-export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
+export default function Navbar({ currentPage }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -22,11 +23,11 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
   }, [mobileMenuOpen]);
 
   const navItems = [
-    { label: "Home", page: "home" },
-    { label: "About", page: "about" },
-    { label: "Services", page: "services" },
-    { label: "Projects", page: "projects" },
-    { label: "Contact", page: "contact" },
+    { label: "Home", page: "home", path: "/" },
+    { label: "About", page: "about", path: "/about" },
+    { label: "Services", page: "services", path: "/services" },
+    { label: "Projects", page: "projects", path: "/projects" },
+    { label: "Contact", page: "contact", path: "/contact" },
   ];
 
   return (
@@ -41,12 +42,12 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
       >
         <div className="max-w-[90%] mx-auto px-4 h-16 flex items-center justify-between">
           {/* LOGO */}
-          <div
-            onClick={() => onNavigate("home")}
+          <Link
+            to="/"
             className="text-2xl font-bold text-white cursor-pointer tracking-wide hover:text-blue-400 transition-colors"
           >
             Vedseem
-          </div>
+          </Link>
 
           {/* DESKTOP MENU */}
           <div className="hidden md:flex items-center gap-2">
@@ -54,8 +55,8 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
               const active = currentPage === item.page;
               return (
                 <div key={item.page} className="flex items-center">
-                  <button
-                    onClick={() => onNavigate(item.page)}
+                  <Link
+                    to={item.path}
                     className="group relative px-3 py-2 overflow-hidden"
                   >
                     <div className="relative flex flex-col items-center">
@@ -82,7 +83,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                     {/* {active && (
                        <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-blue-400 rounded-full shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
                     )} */}
-                  </button>
+                  </Link>
                   
                   {/* Separator - only show if not the last item */}
                   {index < navItems.length - 1 && (
@@ -113,13 +114,13 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
 
       {/* MOBILE DRAWER - Slides from Top */}
       <aside
-        className={`fixed top-0 left-0 right-0 z-50 w-full bg-black/95 backdrop-blur-xl border-b border-white/10 transform transition-transform duration-500 ease-out ${
+        className={`fixed top-0 left-0 right-0 z-50 w-full transform transition-transform duration-500 ease-out ${
           mobileMenuOpen ? "translate-y-0" : "-translate-y-full"
         }`}
       >
         <div className="max-w-7xl mx-auto">
           {/* Header with close button */}
-          <div className="flex items-center justify-between px-6 h-20 border-b border-white/10">
+          <div className="flex opacity-0 items-center justify-between px-6 h-20 border-b border-white/10">
             <div>
               <h2 className="text-xl font-bold text-white">Vedseem</h2>
             </div>
@@ -139,20 +140,20 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                 <button
                   key={item.page}
                   onClick={() => {
-                    onNavigate(item.page);
+                    navigate(item.path);
                     setMobileMenuOpen(false);
                   }}
                   style={{
                     animationDelay: `${index * 80}ms`
                   }}
-                  className={`group relative overflow-hidden rounded-xl transition-all duration-300 ${
+                  className={`group relative overflow-hidden rounded-xl border transition-all duration-300 ${
                     mobileMenuOpen ? 'animate-[slideDown_0.5s_ease-out_forwards]' : ''
                   } ${
                     active ? "scale-[1.02]" : "hover:scale-[1.02]"
                   }`}
                 >
                   {/* Glassmorphism Card */}
-                  <div className={`relative p-3 backdrop-blur-xl border transition-all duration-300 ${
+                  <div className={`relative p-3 backdrop-blur-xl transition-all duration-300 ${
                     active 
                       ? "bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border-blue-400/30 shadow-lg shadow-blue-500/20" 
                       : "bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20"
@@ -170,9 +171,9 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                     </div>
 
                     {/* Active Indicator Bar */}
-                    {active && (
+                    {/* {active && (
                       <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-t-full" />
-                    )}
+                    )} */}
                   </div>
                 </button>
               );

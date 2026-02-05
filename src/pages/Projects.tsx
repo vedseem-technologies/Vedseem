@@ -10,110 +10,51 @@ export default function Projects() {
   
   const projects = [
     {
-      title: 'Camperz - A Camping App',
-      description: 'A comprehensive camping app that helps users find campsites, plan trips, and share experiences with a community of outdoor enthusiasts.',
-      image: 'https://images.pexels.com/photos/6771607/pexels-photo-6771607.jpeg?auto=compress&cs=tinysrgb&w=800',
-      tags: ['NextJs', 'TypeScript', 'Tailwind CSS', '+1 more'],
-      caseStudyLink: '#',
+      title: "Where's The Fork",
+      description: "A food truck franchise platform designed to manage multiple vendors, locations, and menus while enabling customers to discover nearby trucks and place orders easily.",
+      image: "https://images.pexels.com/photos/442152/pexels-photo-442152.jpeg?auto=compress&cs=tinysrgb&w=800",
+      tags: ["Next Js", "Node Js", "Javascript", "Tailwind CSS", "MongoDB", "Express"],
+      caseStudyLink: "#",
       status: 'completed' as const,
       progress: 100,
     },
     {
-      title: 'Arpit\'s Portfolio',
-      description: 'A personal portfolio site crafted with animations, smooth transitions, and responsive design to highlight experience, skills, and project showcases.',
-      image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800',
-      tags: ['Next Js', 'Typescript', 'Tailwind', '+1 more'],
-      caseStudyLink: '#',
-      status: 'in-progress' as const,
-      progress: 90,
-    },
-    {
-      title: 'Surpriselly',
-      description: 'Your one stop gifting destination - surprises delivered with love.',
-      image: 'https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg?auto=compress&cs=tinysrgb&w=800',
-      tags: ['React', 'Javascript', 'Tailwind CSS', '+1 more'],
-      caseStudyLink: '#',
-      status: 'in-progress' as const,
-      progress: 70,
-    },
-    {
-      title: 'Gunno Media Production',
-      description: 'A sleek portfolio website built for a media production team to showcase projects, services, and client collaborations with responsive layouts.',
-      image: 'https://images.pexels.com/photos/3945317/pexels-photo-3945317.jpeg?auto=compress&cs=tinysrgb&w=800',
-      tags: ['React', 'Javascript', 'Tailwind', '+1 more'],
-      caseStudyLink: '#',
-      status: 'completed' as const,
-      progress: 100
-    },
-    {
-      title: 'FinTech Platform',
-      description: 'A comprehensive financial management platform with real-time analytics and AI-powered insights.',
-      image: 'https://images.pexels.com/photos/6771607/pexels-photo-6771607.jpeg?auto=compress&cs=tinysrgb&w=800',
-      tags: ['React', 'Node.js', 'AI/ML', 'Cloud'],
-      caseStudyLink: '#',
+      title: "Knect Hotel",
+      description: "A hotel management and booking solution that streamlines reservations, room availability, guest management, and day-to-day hotel operations.",
+      image: "https://images.pexels.com/photos/6771607/pexels-photo-6771607.jpeg?auto=compress&cs=tinysrgb&w=800",
+      tags: ["Next Js", "Node Js", "Javascript", "Tailwind CSS", "MongoDB", "Express"],
+      caseStudyLink: "#",
       status: 'completed' as const,
       progress: 100,
     },
     {
-      title: 'Healthcare App',
-      description: 'HIPAA-compliant telemedicine application connecting patients with healthcare providers.',
-      image: 'https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg?auto=compress&cs=tinysrgb&w=800',
-      tags: ['React Native', 'HIPAA', 'WebRTC'],
-      caseStudyLink: '#',
-      status: 'in-progress' as const,
-      progress: 85,
+      title: "Dhanush Digital",
+      description: "A scalable e-commerce platform built to support online product listings, secure payments, order management, and a seamless shopping experience for customers.",
+      image: "https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg?auto=compress&cs=tinysrgb&w=800",
+      tags: ["React", "Javascript", "Tailwind CSS", "MongoDB", "Express"],
+      caseStudyLink: "#",
+      status: 'completed' as const,
+      progress: 100,
+    },
+    {
+      title: "Bundelkhand Chamber of Commerce",
+      description: "An official digital platform for the regional chamber of commerce, enabling business registrations, event management, announcements, and member networking.",
+      image: "https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=800",
+      tags: ["Next Js", "Node Js", "Javascript", "Tailwind CSS", "MongoDB", "Express"],
+      caseStudyLink: "#",
+      status: 'completed' as const,
+      progress: 100,
+    },
+    {
+      title: "Gunno Media Productions",
+      description: "A media and production company website showcasing portfolios, projects, and creative services with a strong emphasis on visual storytelling.",
+      image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800",
+      tags: ["React", "Javascript", "Tailwind CSS", "Framer-Motion", "Nodemailer"],
+      caseStudyLink: "#",
+      status: 'completed' as const,
+      progress: 100,
     },
   ];
-
-  // Use cylindrical gallery view
-  if (viewMode === 'cylindrical') {
-    return (
-      <div className="min-h-screen bg-black text-white relative">
-        <CylindricalPortfolio3D projects={projects} />
-        
-        {/* View toggle buttons */}
-        <div className="fixed top-20 right-8 z-50 flex flex-col gap-2">
-          <button
-            onClick={() => setViewMode('cylinder')}
-            className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white hover:bg-white/20 transition-all text-sm"
-          >
-            Cylinder View
-          </button>
-          <button
-            onClick={() => setViewMode('grid')}
-            className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white hover:bg-white/20 transition-all text-sm"
-          >
-            Grid View
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  // Use cylinder view
-  if (viewMode === 'cylinder') {
-    return (
-      <div className="min-h-screen bg-black text-white relative">
-        <CylinderPortfolio3D projects={projects} />
-        
-        {/* View toggle buttons */}
-        <div className="fixed top-20 right-8 z-50 flex flex-col gap-2">
-          <button
-            onClick={() => setViewMode('cylindrical')}
-            className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white hover:bg-white/20 transition-all text-sm"
-          >
-            Gallery View
-          </button>
-          <button
-            onClick={() => setViewMode('grid')}
-            className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white hover:bg-white/20 transition-all text-sm"
-          >
-            Grid View
-          </button>
-        </div>
-      </div>
-    );
-  }
 
   // Grid/List view (default)
   return (
