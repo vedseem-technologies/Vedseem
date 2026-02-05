@@ -40,6 +40,7 @@
     @apply antialiased;
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
+    overflow-x: hidden;
   }
 }
 

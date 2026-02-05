@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { motion } from 'framer-motion';
 import { 
   Code2, 
@@ -14,8 +14,7 @@ import {
   Clock,
   MessageSquare
 } from 'lucide-react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+
 import { Reveal, RevealText } from '../components/ui/RevealText';
 
 // Services Data
@@ -115,7 +114,7 @@ const TECHNOLOGIES = [
 
 export default function Services() {
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-blue-500/30 overflow-x-hidden">
+    <div className="min-h-screen bg-black text-white selection:bg-blue-500/30">
       
       {/* Background Decor */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
@@ -270,7 +269,7 @@ export default function Services() {
       <section className="relative py-24 z-10 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
           <div>
-            <RevealText><h2 className="text-3xl md:text-5xl font-bold mb-6">Why Partner With Us?</h2></RevealText>
+            <RevealText className="pb-2"><h2 className="text-3xl md:text-5xl font-bold mb-6">Why Partner With Us?</h2></RevealText>
             <Reveal delay={0.1}>
                 <p className="text-gray-400 text-lg mb-8 leading-relaxed">
                 We don't just write code; we build partnerships. Our mission is to help you succeed by delivering digital products that make a real impact.
