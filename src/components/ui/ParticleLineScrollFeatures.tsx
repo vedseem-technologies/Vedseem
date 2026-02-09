@@ -1,7 +1,13 @@
 "use client";
 
 import { useRef, useEffect, useState, useMemo } from "react";
-import { motion, useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  MotionValue,
+} from "framer-motion";
 
 /* ---------------- DATA ---------------- */
 
@@ -9,27 +15,32 @@ const features = [
   {
     icon: "🚀",
     title: "Rapid Execution",
-    description: "High-quality engineering delivered at the speed of modern business.",
+    description:
+      "Transform ideas into production-ready solutions with lightning-fast development cycles, delivering exceptional quality without compromising on speed or precision.",
   },
   {
     icon: "🛡️",
     title: "Secure by Design",
-    description: "Ironclad security architectures protecting your data at every touchpoint.",
+    description:
+      "Enterprise-grade security built into every layer of your application, ensuring complete protection of sensitive data with industry-leading encryption and compliance standards.",
   },
   {
     icon: "⚙️",
     title: "Elastic Scalability",
-    description: "Infrastructure that breathes and grows dynamically with your user base.",
+    description:
+      "Future-proof architecture that seamlessly scales from startup to enterprise, handling millions of users with zero downtime and optimal performance at every stage.",
   },
   {
     icon: "🎯",
     title: "Outcome Driven",
-    description: "Deeply aligned technology solutions built for real business impact.",
+    description:
+      "Strategic technology solutions meticulously crafted to achieve measurable business results, driving revenue growth and operational excellence through data-driven innovation.",
   },
   {
     icon: "🤝",
     title: "Technical Partnership",
-    description: "A committed long-term ally in your journey toward digital excellence.",
+    description:
+      "More than a vendor—your dedicated technology partner committed to your long-term success, providing ongoing support, guidance, and cutting-edge solutions.",
   },
 ];
 
@@ -40,7 +51,7 @@ const getSnakeX = (
   time: number,
   canvasWidth: number,
   snakeWidth: number,
-  wavelength: number
+  wavelength: number,
 ) => {
   const k = (Math.PI * 2) / wavelength;
   const mainWave = Math.sin(y * k + Math.PI) * snakeWidth;
@@ -66,12 +77,12 @@ export default function ParticleLineScrollFeatures() {
   }, []);
 
   const layout = useMemo(() => {
-    const gap = isLaptop ? 400 : 450; 
+    const gap = isLaptop ? 400 : 450;
     return {
       gap,
       wavelength: gap * 2,
       particleCount: isLaptop ? 3000 : 1500,
-      particleRadius: isLaptop ? 25 : 8, 
+      particleRadius: isLaptop ? 25 : 8,
       cardWidth: isLaptop ? "40%" : "88%",
       snakeAmplitude: 0.38,
       // User defined offsets (snappy)
@@ -89,7 +100,7 @@ export default function ParticleLineScrollFeatures() {
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 70,
     damping: 30,
-    restDelta: 0.001
+    restDelta: 0.001,
   });
 
   /* ---------------- PARTICLE ENGINE ---------------- */
@@ -145,12 +156,18 @@ export default function ParticleLineScrollFeatures() {
         const p = particles[i];
         p.y += p.drift;
         if (p.y > canvas.height) p.y = 0;
-        
+
         // Aggressive Culling: Only draw what's near the scroll head
-        if (p.y > currentLimit + 120 || p.y < currentLimit - 800) continue; 
+        if (p.y > currentLimit + 120 || p.y < currentLimit - 800) continue;
 
         p.angle += p.spin;
-        const centralX = getSnakeX(p.y, internalTime, canvas.width, snakeWidth, wavelength);
+        const centralX = getSnakeX(
+          p.y,
+          internalTime,
+          canvas.width,
+          snakeWidth,
+          wavelength,
+        );
         const spiralX = Math.cos(p.angle) * p.radius;
         const spiralZ = Math.sin(p.angle);
 
@@ -161,8 +178,14 @@ export default function ParticleLineScrollFeatures() {
         if (spiralZ < 0) opacity *= 0.35;
 
         ctx.beginPath();
-        ctx.arc(centralX + spiralX, p.y, p.size * (1 + spiralZ * 0.2), 0, Math.PI * 2);
-        
+        ctx.arc(
+          centralX + spiralX,
+          p.y,
+          p.size * (1 + spiralZ * 0.2),
+          0,
+          Math.PI * 2,
+        );
+
         ctx.fillStyle = `rgba(${p.colorBase},${opacity})`;
         ctx.fill();
       }
@@ -175,7 +198,7 @@ export default function ParticleLineScrollFeatures() {
       cancelAnimationFrame(frameId);
     };
   }, [smoothProgress, layout, isLaptop]);
-  
+
   const totalHeight = features.length * layout.gap + layout.gap;
 
   return (
@@ -190,11 +213,11 @@ export default function ParticleLineScrollFeatures() {
           </h2>
         </header>
 
-        <div 
-          ref={containerRef} 
+        <div
+          ref={containerRef}
           className="relative w-full"
           style={{ height: `${totalHeight}px` }}
-        > 
+        >
           <canvas
             ref={canvasRef}
             className="absolute left-0 top-0 h-full w-full pointer-events-none z-0"
@@ -234,28 +257,28 @@ function FeatureStep({
   progress: MotionValue<number>;
   totalHeight: number;
 }) {
-  const yPos = index * layout.gap + (layout.gap / 2); 
+  const yPos = index * layout.gap + layout.gap / 2;
   const isEven = index % 2 === 0;
-  
+
   const centerPoint = yPos / totalHeight;
-  const startPoint = centerPoint + (layout.revealStartOffset / totalHeight);
-  const finishPoint = centerPoint + (layout.revealEndOffset / totalHeight);
-  
+  const startPoint = centerPoint + layout.revealStartOffset / totalHeight;
+  const finishPoint = centerPoint + layout.revealEndOffset / totalHeight;
+
   const range = [startPoint, finishPoint];
 
   // Hardware-accelerated transforms
   const opacity = useTransform(progress, range, [0, 1]);
-  const scale = useTransform(progress, range, [0.94, 1]); 
-  const yShift = useTransform(progress, range, [20, 0]); 
-  
+  const scale = useTransform(progress, range, [0.94, 1]);
+  const yShift = useTransform(progress, range, [20, 0]);
+
   const xShiftStart = isEven ? -25 : 25;
   const xShift = useTransform(progress, range, [xShiftStart, 0]);
 
-  const focusRange = 250 / totalHeight; 
+  const focusRange = 250 / totalHeight;
   const glowOpacity = useTransform(
     progress,
     [centerPoint - focusRange, centerPoint, finishPoint + focusRange],
-    [0, 1, 0.4]
+    [0, 1, 0.4],
   );
 
   return (
@@ -264,19 +287,19 @@ function FeatureStep({
       style={{
         top: `${yPos}px`,
         left: 0,
-        transform: 'translateY(-50%) translateZ(0)', // Force GPU layer
-        justifyContent: isEven ? 'flex-start' : 'flex-end',
-        willChange: 'transform'
+        transform: "translateY(-50%) translateZ(0)", // Force GPU layer
+        justifyContent: isEven ? "flex-start" : "flex-end",
+        willChange: "transform",
       }}
     >
       <motion.div
-        style={{ 
-          opacity, 
+        style={{
+          opacity,
           scale,
           y: yShift,
           x: xShift,
           width: layout.cardWidth,
-          willChange: 'transform, opacity'
+          willChange: "transform, opacity",
         }}
         className="relative z-20"
       >
@@ -284,19 +307,19 @@ function FeatureStep({
           <div className="mb-4 md:mb-6 relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 text-3xl md:text-4xl">
             {feature.icon}
           </div>
-          
+
           <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 md:mb-3 relative z-10 tracking-tight">
             {feature.title}
           </h3>
-          
+
           <p className="text-gray-400 text-base md:text-lg leading-relaxed relative z-10">
             {feature.description}
           </p>
-          
-           <motion.div 
-             style={{ opacity: glowOpacity }}
-             className="absolute -right-20 -bottom-20 w-80 h-80 bg-green-500/10 blur-[80px] rounded-full pointer-events-none"
-           />
+
+          <motion.div
+            style={{ opacity: glowOpacity }}
+            className="absolute -right-20 -bottom-20 w-80 h-80 bg-green-500/10 blur-[80px] rounded-full pointer-events-none"
+          />
         </div>
       </motion.div>
     </div>
