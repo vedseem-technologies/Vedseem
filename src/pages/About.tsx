@@ -69,12 +69,12 @@ export default function About() {
   //   },
   // ];
 
-  // const stats = [
-  //   { number: "30+", label: "Happy Circle" },
-  //   { number: "50+", label: "Projects Delivered" },
-  //   { number: "4+", label: "Countries Served" },
-  //   { number: "24/7", label: "Support Available" },
-  // ];
+  const stats = [
+    { number: "30+", label: "Happy Circle" },
+    { number: "50+", label: "Projects Delivered" },
+    { number: "4+", label: "Countries Served" },
+    { number: "24/7", label: "Support Available" },
+  ];
 
   const values: Array<{
     title: string;

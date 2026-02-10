@@ -20,11 +20,11 @@ function HoverFooter() {
     {
       title: "Helpful Links",
       links: [
-        { label: "FAQs", href: "#" },
-        { label: "Support", href: "#" },
+        { label: "FAQs", path: "/support" },
+        { label: "Support", path: "/support#contact-section" },
         {
           label: "Live Chat",
-          href: "#",
+          href: "https://wa.me/917618020879",
           pulse: true,
         },
       ],
@@ -51,13 +51,21 @@ function HoverFooter() {
 
   // Social media icons
   const socialLinks = [
-    { icon: <Linkedin size={20} />, label: "LinkedIn", href: "#" },
+    {
+      icon: <Linkedin size={20} />,
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/company/vedseem-technologies",
+    },
     {
       icon: <Github size={20} />,
       label: "GitHub",
       href: "https://github.com/vedseem-technologies",
     },
-    { icon: <Instagram size={20} />, label: "Instagram", href: "#" },
+    {
+      icon: <Instagram size={20} />,
+      label: "Instagram",
+      href: "https://www.instagram.com/vedseemtechnologies/",
+    },
   ];
 
   return (
@@ -145,8 +153,6 @@ function HoverFooter() {
           </div>
         </div>
 
-        <hr className="border-t border-gray-700/50 my-6" />
-
         {/* Footer bottom - Single horizontal line */}
         <div className="flex flex-col md:flex-row justify-between items-center text-sm gap-3">
           {/* Social icons - Left side */}
@@ -168,6 +174,8 @@ function HoverFooter() {
             &copy; {new Date().getFullYear()} VEDSEEM. All rights reserved.
           </p>
         </div>
+
+        <hr className="border-t border-gray-700/50 mt-8 mb-16" />
       </div>
 
       {/* Text hover effect */}

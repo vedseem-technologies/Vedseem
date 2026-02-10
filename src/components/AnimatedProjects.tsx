@@ -22,46 +22,41 @@ export default function AnimatedProjects() {
       title: "Where's The Fork",
       description:
         "A food truck franchise platform designed to manage multiple vendors, locations, and menus while enabling customers to discover nearby trucks and place orders easily.",
-      image:
-        "https://images.pexels.com/photos/442152/pexels-photo-442152.jpeg?auto=compress&cs=tinysrgb&w=800",
+      image: "/projects/wtf.jpg.jpeg",
       tags: ["Python", "MQTT", "TimescaleDB"],
-      caseStudyLink: "#",
+      caseStudyLink: "https://www.wtffoods.in/",
     },
     {
       title: "Knect Hotel",
       description:
         "A hotel management and booking solution that streamlines reservations, room availability, guest management, and day-to-day hotel operations.",
-      image:
-        "https://images.pexels.com/photos/6771607/pexels-photo-6771607.jpeg?auto=compress&cs=tinysrgb&w=800",
+      image: "/projects/knect.jpg.jpeg",
       tags: ["React", "Node.js", "Cloud"],
-      caseStudyLink: "#",
+      caseStudyLink: "https://www.knecthotel.com/",
     },
     {
-      title: "Dhanush Digital",
+      title: "Book My Party",
       description:
-        "A scalable e-commerce platform built to support online product listings, secure payments, order management, and a seamless shopping experience for customers.",
-      image:
-        "https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg?auto=compress&cs=tinysrgb&w=800",
-      tags: ["React", "E-commerce", "Payments"],
-      caseStudyLink: "#",
+        "An all-in-one event management and venue booking platform that allows users to discover, compare, and book party venues and services seamlessly.",
+      image: "/projects/bmp.jpg.jpeg",
+      tags: ["Wordpress", "React", "PHP", "Tailwind CSS", "MongoDB"],
+      caseStudyLink: "https://www.bookmyparty.co.in/",
     },
     {
       title: "Bundelkhand Chamber of Commerce",
       description:
         "An official digital platform for the regional chamber of commerce, enabling business registrations, event management, announcements, and member networking.",
-      image:
-        "https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=800",
+      image: "/projects/bcci.jpg.jpeg",
       tags: ["Vue.js", "CMS", "WebSocket"],
-      caseStudyLink: "#",
+      caseStudyLink: "https://bundelkhandchamberofcommerce.com/",
     },
     {
       title: "Gunno Media Productions",
       description:
         "A media and production company website showcasing portfolios, projects, and creative services with a strong emphasis on visual storytelling.",
-      image:
-        "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800",
+      image: "/projects/wtf.jpg.jpeg",
       tags: ["Next.js", "Media", "PostgreSQL"],
-      caseStudyLink: "#",
+      caseStudyLink: "https://www.wtffoods.in/",
     },
   ];
 
@@ -117,7 +112,7 @@ export default function AnimatedProjects() {
           y: 0,
           duration: 1,
           ease: "power2.out",
-        }
+        },
       );
 
       // Phase 2: Fade merge (1s to 2s)
@@ -128,7 +123,7 @@ export default function AnimatedProjects() {
           duration: 0.5,
           ease: "power1.inOut",
         },
-        "-=0.5"
+        "-=0.5",
       );
 
       tl.to(
@@ -138,7 +133,7 @@ export default function AnimatedProjects() {
           duration: 0.5,
           ease: "power1.inOut",
         },
-        "-=0.5"
+        "-=0.5",
       );
     });
   };
@@ -492,8 +487,7 @@ export default function AnimatedProjects() {
   shadow-lg transition-transform duration-300 active:scale-90"
               aria-label="Next"
             >
-              <ArrowRight size={22} 
-              className="size-8" />
+              <ArrowRight size={22} className="size-8" />
             </button>
           </div>
         </div>

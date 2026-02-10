@@ -130,27 +130,27 @@ const PROCESS = [
 // Why Choose Us Data
 const FEATURES = [
   {
-    title: "Transparent Communication",
+    title: "Unwavering Reliability",
     description:
-      "You're never in the dark. We provide regular updates and open channels for feedback throughout the project.",
+      "We deliver on our promises. Our track record of successful deployments speaks to our commitment to stability and consistency.",
     icon: <MessageSquare className="size-6 text-cyan-400" />,
   },
   {
-    title: "Agile Methodology",
+    title: "Transparent & Agile",
     description:
-      "We adapt to changes quickly, delivering value in iterations so you can see progress faster.",
+      "No hidden costs or surprises. We maintain open lines of communication and adapt quickly to your evolving business requirements.",
     icon: <Zap className="size-6 text-blue-400" />,
   },
   {
-    title: "Scalable Solutions",
+    title: "Future-Ready Architecture",
     description:
-      "Our code is built to grow. We design architectures that can handle your future success.",
+      "We don't just solve today's problems. We engineer scalable solutions that grow with your business and adapt to future technologies.",
     icon: <Layers className="size-6 text-blue-500" />,
   },
   {
-    title: "On-Time Delivery",
+    title: "Long-Term Support",
     description:
-      "We respect deadlines. Our efficient processes ensure we deliver quality work when promised.",
+      "Our relationship doesn't end at launch. We provide dedicated support and maintenance to ensure your digital assets remain peak performers.",
     icon: <Clock className="size-6 text-indigo-400" />,
   },
 ];
@@ -422,13 +422,16 @@ export default function Services() {
             >
               <Code2 className="size-12 text-white mb-6" />
               <blockquote className="text-xl md:text-2xl font-medium leading-relaxed text-gray-200 mb-6">
-                "Their team didn't just build what we asked for. They helped us
-                refine our idea and delivered a product that exceeded our
-                expectations."
+                "Vedseem helped us digitalize our entire member registration and
+                event management process. Their team is professional,
+                responsive, and truly understands the needs of an organization
+                like ours."
               </blockquote>
               <div>
-                <div className="font-bold text-white">Alex Morgan</div>
-                <div className="text-blue-400 text-sm">CEO, TechStart Inc.</div>
+                <div className="font-bold text-white">Mr. Dheeraj Khullar</div>
+                <div className="text-blue-400 text-sm">
+                  President, Bundelkhand Chamber of Commerce
+                </div>
               </div>
             </motion.div>
           </div>

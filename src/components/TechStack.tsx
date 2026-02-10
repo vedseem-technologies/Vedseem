@@ -1,23 +1,70 @@
 "use client";
-import type { Tech } from "../types";
 
-const tech: Tech[] = [
-  { name: "React", icon: "⚛️" },
-  { name: "Node.js", icon: "🟢" },
-  { name: "TypeScript", icon: "📘" },
-  { name: "Python", icon: "🐍" },
-  { name: "HTML", icon: "🌐" },
-  { name: "CSS", icon: "🎨" },
-  { name: "Tailwind", icon: "💨" },
-  { name: "JavaScript", icon: "⚡" },
-  { name: "AWS", icon: "☁️" },
-  { name: "Docker", icon: "🐳" },
-  { name: "PostgreSQL", icon: "🐘" },
-  { name: "MongoDB", icon: "🍃" },
-  { name: "GraphQL", icon: "◈" },
-  { name: "Kubernetes", icon: "☸️" },
-  { name: "Redis", icon: "🔴" },
-  { name: "Next.js", icon: "▲" },
+const tech: { name: string; logo: string }[] = [
+  {
+    name: "React",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
+  },
+  {
+    name: "Next.js",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg",
+  },
+  {
+    name: "Node.js",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg",
+  },
+  {
+    name: "TypeScript",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg",
+  },
+  {
+    name: "AWS",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
+  },
+  {
+    name: "PostgreSQL",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg",
+  },
+  {
+    name: "MongoDB",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg",
+  },
+  {
+    name: "GraphQL",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/graphql/graphql-plain.svg",
+  },
+  {
+    name: "Python",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg",
+  },
+  {
+    name: "Docker",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg",
+  },
+  {
+    name: "Kubernetes",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-original.svg",
+  },
+  {
+    name: "Redis",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg",
+  },
+  {
+    name: "Tailwind",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg",
+  },
+  {
+    name: "JavaScript",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg",
+  },
+  {
+    name: "CSS",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg",
+  },
+  {
+    name: "HTML",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg",
+  },
 ];
 
 export default function TechStackHologram() {
@@ -47,8 +94,12 @@ export default function TechStackHologram() {
                 hover:border-cyan-400/40
               "
             >
-              <div className="mx-auto mb-4 text-4xl transition-transform duration-300 group-hover:scale-110">
-                {t.icon}
+              <div className="mx-auto mb-4 h-12 w-12 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                <img
+                  src={t.logo}
+                  alt={`${t.name} logo`}
+                  className="w-full h-full object-contain"
+                />
               </div>
 
               <div className="text-white/90 font-medium tracking-wide">

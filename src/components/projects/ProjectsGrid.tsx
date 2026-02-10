@@ -1,56 +1,37 @@
-import { useState } from 'react';
-import ProjectCard from './ProjectCard';
-import ProjectListItem from './ProjectListItem';
-import ProjectModal from './ProjectModal';
+import ProjectCard from "./ProjectCard";
 
 interface Project {
   title: string;
+  clientName?: string;
+  category: string;
   description: string;
   image: string;
+  images?: string[];
   tags: string[];
-  status: 'completed' | 'in-progress';
+  status: "completed" | "in-progress";
   progress: number;
   caseStudyLink: string;
 }
 
 interface ProjectsGridProps {
-  viewMode: 'grid' | 'list';
   projects: Project[];
+  onProjectSelect: (project: Project) => void;
 }
 
-export default function ProjectsGrid({ viewMode, projects }: ProjectsGridProps) {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-
+export default function ProjectsGrid({
+  projects,
+  onProjectSelect,
+}: ProjectsGridProps) {
   return (
-    <>
-      <div className={`grid gap-6 ${
-        viewMode === 'grid' 
-          ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
-          : 'grid-cols-1'
-      }`}>
-        {projects.map((project, index) => (
-          viewMode === 'grid' ? (
-            <ProjectCard
-              key={index}
-              project={project}
-              index={index}
-              onClick={() => setSelectedProject(project)}
-            />
-          ) : (
-            <ProjectListItem
-              key={index}
-              project={project}
-              index={index}
-              onClick={() => setSelectedProject(project)}
-            />
-          )
-        ))}
-      </div>
-
-      <ProjectModal 
-        project={selectedProject} 
-        onClose={() => setSelectedProject(null)} 
-      />
-    </>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {projects.map((project, index) => (
+        <ProjectCard
+          key={index}
+          project={project}
+          index={index}
+          onClick={() => onProjectSelect(project)}
+        />
+      ))}
+    </div>
   );
 }

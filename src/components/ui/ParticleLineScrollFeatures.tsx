@@ -14,33 +14,33 @@ import {
 const features = [
   {
     icon: "🚀",
-    title: "Rapid Execution",
+    title: "High-Performance Engineering",
     description:
-      "Transform ideas into production-ready solutions with lightning-fast development cycles, delivering exceptional quality without compromising on speed or precision.",
+      "We build systems optimized for speed, scalability, and efficiency. Our solutions are engineered to handle high traffic and complex operations with minimal latency.",
   },
   {
     icon: "🛡️",
-    title: "Secure by Design",
+    title: "Enterprise-Grade Security",
     description:
-      "Enterprise-grade security built into every layer of your application, ensuring complete protection of sensitive data with industry-leading encryption and compliance standards.",
+      "Security is not an afterthought. We implement industry-leading encryption, compliance standards, and secure architecture to protect your business and customer data.",
   },
   {
     icon: "⚙️",
-    title: "Elastic Scalability",
+    title: "Scalable Infrastructure",
     description:
-      "Future-proof architecture that seamlessly scales from startup to enterprise, handling millions of users with zero downtime and optimal performance at every stage.",
+      "Built for growth. Our applications are designed to scale seamlessly with your business, ensuring reliable performance whether you have 100 or 1 million users.",
   },
   {
     icon: "🎯",
-    title: "Outcome Driven",
+    title: "Data-Driven Strategy",
     description:
-      "Strategic technology solutions meticulously crafted to achieve measurable business results, driving revenue growth and operational excellence through data-driven innovation.",
+      "We leverage analytics and insights to build solutions that solve real business problems, ensuring every feature delivers measurable value and ROI.",
   },
   {
     icon: "🤝",
-    title: "Technical Partnership",
+    title: "End-to-End Partnership",
     description:
-      "More than a vendor—your dedicated technology partner committed to your long-term success, providing ongoing support, guidance, and cutting-edge solutions.",
+      "From initial consultation to post-launch support, we act as your dedicated technical partner, ensuring your digital products evolve with your business needs.",
   },
 ];
 

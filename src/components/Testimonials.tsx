@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import {
   CardTransformed,
   CardsContainer,
@@ -11,84 +10,44 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 const TESTIMONIALS = [
   {
-    id: "testimonial-3",
-    name: "James S.",
-    profession: "Frontend Developer",
+    id: "testimonial-1",
+    name: "Mr. Karan Mehta",
+    profession: "Client",
     rating: 5,
     description:
-      "Their innovative solutions and quick turnaround time made our collaboration incredibly successful. Highly recommended!",
+      "Startups need partners who understand urgency and quality. Vedseem delivered our MVP in record time without cutting corners. Their technical guidance was invaluable.",
     avatarUrl:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=600&auto=format&fit=crop",
-  },
-  {
-    id: "testimonial-1",
-    name: "Jessica H.",
-    profession: "Web Designer",
-    rating: 4.5,
-    description:
-      "The attention to detail and user experience in their work is exceptional. I'm thoroughly impressed with the final product.",
-    avatarUrl:
-      "https://plus.unsplash.com/premium_photo-1690407617542-2f210cf20d7e?w=600&auto=format&fit=crop&q=60",
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop",
   },
   {
     id: "testimonial-2",
-    name: "Lisa M.",
-    profession: "UX Designer",
+    name: "Mr. Sanjoy Kaul",
+    profession: "Client",
     rating: 5,
     description:
-      "Working with them was a game-changer for our project. Their expertise and professionalism exceeded our expectations.",
+      "We approached them for a complex inventory management system. The team not only understood our requirements but suggested improvements that saved us cost and time.",
     avatarUrl:
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop&q=60",
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=600&auto=format&fit=crop",
+  },
+  {
+    id: "testimonial-3",
+    name: "Mr. Amit Singh",
+    profession: "Director, Rise",
+    rating: 5,
+    description:
+      "Competence, commitment, and clarity—that’s Vedseem for you. They have been instrumental in digitalizing our operations with robust software solutions.",
+    avatarUrl:
+      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=600&auto=format&fit=crop",
   },
   {
     id: "testimonial-4",
-    name: "Jane D.",
-    profession: "UI/UX Designer",
-    rating: 4.5,
-    description:
-      "The quality of work and communication throughout the project was outstanding. They delivered exactly what we needed.",
-    avatarUrl:
-      "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&auto=format&fit=crop&q=60",
-  },
-  {
-    id: "testimonial-5",
-    name: "James S.",
-    profession: "Frontend Developer",
+    name: "Mr. Dheeraj Khullar",
+    profession: "President, Bundelkhand Chamber of Commerce",
     rating: 5,
     description:
-      "Their innovative solutions and quick turnaround time made our collaboration incredibly successful. Highly recommended!",
+      "It is rare to find a technology partner who truly cares about your success. The Vedseem team went above and beyond to ensure our platform was user-friendly and scalable.",
     avatarUrl:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=600&auto=format&fit=crop",
-  },
-  {
-    id: "testimonial-6",
-    name: "Jessica H.",
-    profession: "Web Designer",
-    rating: 4.5,
-    description:
-      "The attention to detail and user experience in their work is exceptional. I'm thoroughly impressed with the final product.",
-    avatarUrl:
-      "https://plus.unsplash.com/premium_photo-1690407617542-2f210cf20d7e?w=600&auto=format&fit=crop&q=60",
-  },
-  {
-    id: "testimonial-7",
-    name: "Lisa M.",
-    profession: "UX Designer",
-    rating: 5,
-    description:
-      "Working with them was a game-changer for our project. Their expertise and professionalism exceeded our expectations.",
-    avatarUrl:
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop&q=60",
-  },
-  {
-    id: "testimonial-8",
-    name: "Jane D.",
-    profession: "UI/UX Designer",
-    rating: 4.5,
-    description:
-      "The quality of work and communication throughout the project was outstanding. They delivered exactly what we needed.",
-    avatarUrl:
-      "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&auto=format&fit=crop&q=60",
+      "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=600&auto=format&fit=crop", // Placeholder professional image
   },
 ];
 
@@ -136,7 +95,10 @@ export default function Testimonials() {
                         id={`card-${testimonial.id}-content`}
                         className="mx-auto w-full text-base sm:text-xl text-white/90 font-medium px-2"
                       >
-                        <blockquote cite="#" className="leading-relaxed italic line-clamp-4 sm:line-clamp-none">
+                        <blockquote
+                          cite="#"
+                          className="leading-relaxed italic line-clamp-4 sm:line-clamp-none"
+                        >
                           “{testimonial.description}”
                         </blockquote>
                       </div>
