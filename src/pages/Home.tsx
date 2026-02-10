@@ -68,9 +68,9 @@ export default function Home() {
       caseStudyLink: "https://bundelkhandchamberofcommerce.com/",
     },
     {
-      title: "Gunno Media Productions",
+      title: "Where's The Fork",
       description:
-        "A media and production company website showcasing portfolios, projects, and creative services with a strong emphasis on visual storytelling.",
+        "A food truck franchise platform designed to manage multiple vendors, locations, and menus while enabling customers to discover nearby trucks and place orders easily.",
       image: "/projects/wtf.jpg.jpeg",
       tags: [
         "React",
