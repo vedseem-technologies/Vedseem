@@ -67,20 +67,20 @@ export default function Home() {
       ],
       caseStudyLink: "https://bundelkhandchamberofcommerce.com/",
     },
-    {
-      title: "Where's The Fork",
-      description:
-        "A food truck franchise platform designed to manage multiple vendors, locations, and menus while enabling customers to discover nearby trucks and place orders easily.",
-      image: "/projects/wtf.jpg.jpeg",
-      tags: [
-        "React",
-        "Javascript",
-        "Tailwind CSS",
-        "Framer-Motion",
-        "Nodemailer",
-      ],
-      caseStudyLink: "https://www.wtffoods.in/",
-    },
+    // {
+    //   title: "Where's The Fork",
+    //   description:
+    //     "A food truck franchise platform designed to manage multiple vendors, locations, and menus while enabling customers to discover nearby trucks and place orders easily.",
+    //   image: "/projects/wtf.jpg.jpeg",
+    //   tags: [
+    //     "React",
+    //     "Javascript",
+    //     "Tailwind CSS",
+    //     "Framer-Motion",
+    //     "Nodemailer",
+    //   ],
+    //   caseStudyLink: "https://www.wtffoods.in/",
+    // },
     {
       title: "MakeOverByReet",
       description:
@@ -135,7 +135,7 @@ export default function Home() {
         </div>
 
         {/* Stats Section */}
-        <div>
+        <div id="achievements" className="scroll-mt-24">
           <StatsVisualization3D stats={stats} />
         </div>
 

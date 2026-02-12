@@ -70,7 +70,7 @@ function HoverFooter() {
 
   return (
     <footer className="bg-[#0F0F11]/10 relative h-fit rounded-3xl overflow-hidden m-2 mt-16 md:m-4 md:mt-16 lg:m-8 border border-blue-500/20 shadow-[0_0_20px_rgba(59,130,246,0.15)] z-30">
-      <div className="max-w-7xl mx-auto p-6 lg:p-14 relative z-10">
+      <div className="max-w-7xl mx-auto p-6 lg:p-14 relative z-30">
         <div className="grid grid-cols-1 md:flex justify-between   gap-12 md:gap-8 lg:gap-16 pb-12">
           {/* Brand section */}
           <div className="flex flex-col space-y-4">
@@ -175,7 +175,7 @@ function HoverFooter() {
           </p>
         </div>
 
-        <hr className="border-t border-gray-700/50 mt-8 mb-16" />
+        <hr className="border-t border-gray-700/50 mt-8 mb-4 lg:mb-16" />
       </div>
 
       {/* Text hover effect */}

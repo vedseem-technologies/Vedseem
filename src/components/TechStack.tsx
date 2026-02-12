@@ -75,9 +75,9 @@ export default function TechStackHologram() {
     >
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         <h2 className="text-center text-5xl font-extrabold text-white mb-16">
-          Tech Stack{" "}
+          Our Core{" "}
           <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-            We Trust
+            Technologies
           </span>
         </h2>
 

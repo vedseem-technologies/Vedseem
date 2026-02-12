@@ -569,11 +569,12 @@ export default function CylindricalPortfolio3D({
       className="relative min-h-[300vh] bg-black"
       onClick={handleWallActivate}
     >
-      {/* Active-state indicator ring */}
+      {/* Active-state indicator — "Press ESC to exit" */}
       {isWallActive && (
-        <div className="fixed top-4 right-4 z-50 flex items-center gap-2 px-3 py-1.5 bg-blue-600/20 border border-blue-500/40 rounded-full backdrop-blur-sm text-xs text-blue-300 font-mono animate-pulse">
-          <span className="w-2 h-2 rounded-full bg-blue-400" />
-          3D Active · ESC to exit
+        <div className="fixed top-44 right-6 z-[999] flex items-center gap-2 px-4 py-2 bg-black/80 border border-blue-500/50 rounded-lg backdrop-blur-md text-sm text-white font-medium shadow-lg shadow-blue-500/20 animate-pulse">
+          <span className="w-2.5 h-2.5 rounded-full bg-blue-400 animate-ping" />
+          <span className="w-2.5 h-2.5 rounded-full bg-blue-400 absolute left-[18px]" />
+          Press <kbd className="mx-1 px-1.5 py-0.5 bg-white/10 border border-white/20 rounded text-xs font-mono">ESC</kbd> to exit
         </div>
       )}
       {/* Horizontal scroll support (pointer-events-none to prevent scroll blocking) */}
