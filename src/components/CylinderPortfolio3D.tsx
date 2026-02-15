@@ -507,7 +507,7 @@ export default function CylinderPortfolio3D({ projects }: CylinderPortfolio3DPro
               Portfolio
             </h2>
             <p className="text-gray-500 text-sm mt-4 font-mono tracking-widest">
-              SCROLL TO ROTATE • CLICK PROJECT TO VIEW
+              SCROLL DOWN OR TOP TO ROTATE • CLICK PROJECT TO VIEW •
             </p>
           </div>
           

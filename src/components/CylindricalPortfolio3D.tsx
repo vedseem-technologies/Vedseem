@@ -569,14 +569,7 @@ export default function CylindricalPortfolio3D({
       className="relative min-h-[300vh] bg-black"
       onClick={handleWallActivate}
     >
-      {/* Active-state indicator — "Press ESC to exit" */}
-      {isWallActive && (
-        <div className="fixed top-44 right-6 z-[999] flex items-center gap-2 px-4 py-2 bg-black/80 border border-blue-500/50 rounded-lg backdrop-blur-md text-sm text-white font-medium shadow-lg shadow-blue-500/20 animate-pulse">
-          <span className="w-2.5 h-2.5 rounded-full bg-blue-400 animate-ping" />
-          <span className="w-2.5 h-2.5 rounded-full bg-blue-400 absolute left-[18px]" />
-          Press <kbd className="mx-1 px-1.5 py-0.5 bg-white/10 border border-white/20 rounded text-xs font-mono">ESC</kbd> to exit
-        </div>
-      )}
+
       {/* Horizontal scroll support (pointer-events-none to prevent scroll blocking) */}
       <div
         ref={scrollContainerRef}
@@ -626,7 +619,6 @@ export default function CylindricalPortfolio3D({
           </Suspense>
         </Canvas>
 
-        {/* UI Overlay */}
         <div className="absolute inset-0 pointer-events-none z-10">
           {/* Header */}
           <div className="absolute top-20 left-1/2 transform -translate-x-1/2 text-center w-full px-4">
@@ -634,8 +626,19 @@ export default function CylindricalPortfolio3D({
               Portfolio Gallery
             </h2>
             <p className="text-gray-500 text-sm mt-4 font-mono tracking-widest">
-              SCROLL TO ROTATE • CLICK TO VIEW
+              CLICK PROJECT TO VIEW • SWIPE SIDEWAYS TO VIEW ALL PROJECTS
             </p>
+          </div>
+
+          {/* Interaction hint — always visible, toggles based on animation state */}
+          <div className="absolute top-44 right-6 flex items-center gap-2 px-4 py-2 bg-black/80 border border-blue-500/50 rounded-lg backdrop-blur-md text-sm text-white font-medium shadow-lg shadow-blue-500/20 animate-pulse">
+            <span className="w-2.5 h-2.5 rounded-full bg-blue-400 animate-ping" />
+            <span className="w-2.5 h-2.5 rounded-full bg-blue-400 absolute left-[18px]" />
+            {isWallActive ? (
+              <>Press <kbd className="mx-1 px-1.5 py-0.5 bg-white/10 border border-white/20 rounded text-xs font-mono">ESC</kbd> to exit animation</>
+            ) : (
+              <>Double click and move cursor to change camera angle</>
+            )}
           </div>
 
           {/* Project Details Card - BOTTOM OVERLAY */}
