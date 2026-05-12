@@ -232,7 +232,7 @@ export default function Navbar({ currentPage }: NavbarProps) {
         </div>
       </aside>
 
-      <style jsx>{`
+      <style>{`
         @keyframes cascadeIn {
           0% {
             opacity: 0;
