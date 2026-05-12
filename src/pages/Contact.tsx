@@ -1,4 +1,5 @@
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 import {
   Mail,
   Phone,
@@ -7,7 +8,12 @@ import {
   Linkedin,
   Instagram,
   Github,
+  CheckCircle,
 } from "lucide-react";
+
+const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -26,26 +32,27 @@ export default function Contact() {
     setError("");
 
     try {
-      const response = await fetch("/api/send-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          to_name: "Vedseem Team",
+          reply_to: formData.email,
         },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to send message. Please try again later.");
-      }
+        PUBLIC_KEY,
+      );
 
       setSubmitted(true);
       setFormData({ name: "", email: "", message: "" });
-      setTimeout(() => setSubmitted(false), 5000);
+      setTimeout(() => setSubmitted(false), 6000);
     } catch (err) {
+      console.error("EmailJS Error:", err);
       setError(
         "Something went wrong. Please reach out to us directly via email or phone.",
       );
-      console.error(err);
     } finally {
       setIsSubmitting(false);
     }
@@ -165,12 +172,14 @@ export default function Contact() {
               <h2 className="text-3xl font-bold mb-6">Send us a Message</h2>
 
               {submitted ? (
-                <div className="bg-green-500/20 border border-green-500/50 rounded-lg p-6 text-center">
-                  <p className="text-green-400 font-semibold text-lg">
-                    Thank you for your message!
+                <div className="bg-green-500/10 border border-green-500/40 rounded-xl p-8 text-center flex flex-col items-center gap-4">
+                  <CheckCircle className="text-green-400" size={52} />
+                  <p className="text-green-400 font-semibold text-xl">
+                    Message Sent Successfully!
                   </p>
-                  <p className="text-gray-300 mt-2">
-                    We'll get back to you soon.
+                  <p className="text-gray-300">
+                    Thank you for reaching out. We'll get back to you as soon as
+                    possible.
                   </p>
                 </div>
               ) : (
@@ -243,8 +252,36 @@ export default function Contact() {
                     disabled={isSubmitting}
                     className="w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                   >
-                    {isSubmitting ? "Sending..." : "Send Message"}
-                    {!isSubmitting && <Send size={20} />}
+                    {isSubmitting ? (
+                      <>
+                        <svg
+                          className="animate-spin h-5 w-5 text-white"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                          ></path>
+                        </svg>
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        Send Message
+                        <Send size={20} />
+                      </>
+                    )}
                   </button>
                 </form>
               )}
