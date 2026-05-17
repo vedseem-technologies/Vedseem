@@ -59,6 +59,17 @@ export default function Projects() {
       progress: 100,
     },
     {
+      title: "Mountview Heritage Hotel",
+      category: "Web Development",
+      description:
+        "A luxury heritage hotel website featuring an interactive virtual tour and curated local experiences for guests.",
+      image: "/projects/about5.png",
+      tags: ["HTML", "CSS", "Javascript"],
+      caseStudyLink: "https://mountviewheritagehotel.com/",
+      status: "completed" as const,
+      progress: 100,
+    },
+    {
       title: "Book My Party",
       category: "Web Development",
       description:

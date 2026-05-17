@@ -53,6 +53,14 @@ export default function Home() {
       caseStudyLink: "https://www.bookmyparty.co.in/",
     },
     {
+      title: "Mountview Heritage Hotel",
+      description:
+      "A luxury heritage hotel website featuring an interactive virtual tour and curated local experiences for guests.",
+      image: "/projects/about5.png",
+      tags: ["HTML", "CSS", "Javascript"],
+      caseStudyLink: "https://mountviewheritagehotel.com/",
+    },
+    {
       title: "Bundelkhand Chamber of Commerce",
       description:
         "An official digital platform for the regional chamber of commerce, enabling business registrations, event management, announcements, and member networking.",
@@ -67,24 +75,10 @@ export default function Home() {
       ],
       caseStudyLink: "https://bundelkhandchamberofcommerce.com/",
     },
-    // {
-    //   title: "Where's The Fork",
-    //   description:
-    //     "A food truck franchise platform designed to manage multiple vendors, locations, and menus while enabling customers to discover nearby trucks and place orders easily.",
-    //   image: "/projects/wtf.jpg.jpeg",
-    //   tags: [
-    //     "React",
-    //     "Javascript",
-    //     "Tailwind CSS",
-    //     "Framer-Motion",
-    //     "Nodemailer",
-    //   ],
-    //   caseStudyLink: "https://www.wtffoods.in/",
-    // },
     {
       title: "MakeOverByReet",
       description:
-        "A professional beauty portfolio and booking platform for a makeup artist, featuring gallery showcases and direct appointment scheduling.",
+      "A professional beauty portfolio and booking platform for a makeup artist, featuring gallery showcases and direct appointment scheduling.",
       image: "/projects/makeover.jpg.jpeg",
       tags: ["HTML", "CSS", "JavaScript", "Bootstrap", "Resend"],
       caseStudyLink: "https://makeoverbyreet.com/",

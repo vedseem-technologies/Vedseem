@@ -86,14 +86,14 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
             onClick={(e) => e.stopPropagation()}
-            className={`bg-[#080808] border border-white/10 w-full max-w-6xl h-[85vh] rounded-[24px] md:rounded-[40px] overflow-hidden relative shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col ${
+            className={`bg-[#080808] border border-white/10 w-full max-w-6xl h-[75vh] rounded-[24px] md:rounded-[32px] overflow-hidden relative shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col ${
               isDesignCategory ? "" : "md:flex-row"
             }`}
           >
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 md:top-8 md:right-8 p-3 bg-black/50 text-white rounded-full hover:bg-white/10 transition-all z-[100] border border-white/10 backdrop-blur-xl group"
+              className="absolute top-4 right-4 md:top-4 md:right-4 p-3 bg-black/50 text-white rounded-full hover:bg-white/10 transition-all z-[100] border border-white/10 backdrop-blur-xl group"
             >
               <X
                 size={20}
@@ -192,7 +192,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 {/* Right Side: Content Area */}
                 <div className="flex-1 h-[70%] md:h-full flex flex-col min-h-0 bg-gradient-to-br from-white/[0.01] to-transparent">
                   {/* Fixed Header */}
-                  <div className="p-6 md:p-12 pb-4 md:pb-8 border-b border-white/5 flex-shrink-0">
+                  <div className="p-6 md:p-8 md:px-10 pb-4 md:pb-8 border-b border-white/5 flex-shrink-0">
                     <h2 className="text-2xl md:text-5xl font-black mb-3 md:mb-6 bg-gradient-to-b from-white via-white to-gray-500 bg-clip-text text-transparent tracking-tighter leading-tight">
                       {project.title}
                     </h2>
@@ -238,7 +238,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                         href={project.caseStudyLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 py-3 md:py-5 px-6 bg-white/[0.03] border border-white/10 rounded-xl md:rounded-2xl flex items-center justify-center gap-2 md:gap-3 hover:bg-white/[0.08] transition-all text-[10px] md:text-sm lg:text-md uppercase tracking-[0.2em] text-white group"
+                        className="flex-1 py-3 md:py-4 px-6 bg-white/[0.03] border border-white/10 rounded-xl md:rounded-2xl flex items-center justify-center gap-2 md:gap-3 hover:bg-white/[0.08] transition-all text-[10px] md:text-sm lg:text-md uppercase tracking-[0.2em] text-white group"
                       >
                         <LayoutGrid
                           size={16}
@@ -250,7 +250,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                         href={project.caseStudyLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 py-3 md:py-5 px-6 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl md:rounded-2xl text-white lg:text-md uppercase tracking-[0.2em] flex items-center justify-center gap-2 md:gap-3 hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:scale-[1.02] transition-all text-[10px] md:text-sm"
+                        className="flex-1 py-3 md:py-4 px-6 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl md:rounded-2xl text-white lg:text-md uppercase tracking-[0.2em] flex items-center justify-center gap-2 md:gap-3 hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:scale-[1.02] transition-all text-[10px] md:text-sm"
                       >
                         <Globe size={16} className="animate-pulse" />
                         <span>Live Project</span>
