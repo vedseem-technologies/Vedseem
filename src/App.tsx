@@ -8,6 +8,7 @@ import Services from "./pages/Services";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
 import Support from "./pages/Support";
+import LeadCaptureModal from "./components/LeadCaptureModal";
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -62,6 +63,7 @@ function App() {
   return (
     <div className="min-h-screen bg-black">
       <ScrollToTop />
+      <LeadCaptureModal />
       <Navbar currentPage={currentPage} />
       <main>
         <Routes>
