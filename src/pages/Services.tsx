@@ -206,11 +206,11 @@ export default function Services() {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight text-center text-white leading-tight drop-shadow-lg">
-              <RevealText className="block mb-2 py-3" width="100%">
+              <RevealText className="block md:mb-2 md:py-3" width="100%">
                 Building Digital Excellence for
               </RevealText>
               <RevealText
-                className="block text-transparent pb-3 bg-clip-text bg-gradient-to-r from-cyan-300 via-blue-500 to-indigo-500 drop-shadow-none filter brightness-110"
+                className="block text-transparent md:pb-3 bg-clip-text bg-gradient-to-r from-cyan-300 via-blue-500 to-indigo-500 drop-shadow-none filter brightness-110"
                 width="100%"
               >
                 Visionary Companies
@@ -223,15 +223,12 @@ export default function Services() {
                 tailored for your growth.
               </p>
             </Reveal>
-            <motion.a
-              href="/contact"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-100 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+            <button
+              onClick={() => window.dispatchEvent(new Event("open-lead-modal"))}
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-medium text-md text-white bg-gradient-to-r from-blue-500 to-violet-600 hover:from-blue-400 hover:to-violet-500 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:scale-[1.03] active:scale-95 transition-all duration-200"
             >
-              Get a Free Consultation
-              <ArrowRight className="size-4" />
-            </motion.a>
+              Get A Free Demo
+            </button>
           </motion.div>
         </div>
       </section>

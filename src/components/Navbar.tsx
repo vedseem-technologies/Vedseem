@@ -31,6 +31,7 @@ export default function Navbar({ currentPage }: NavbarProps) {
     { label: "Contact", page: "contact", path: "/contact" },
   ];
 
+
   // Close with exit animation
   const closeMenu = useCallback(() => {
     if (isClosing || !mobileMenuOpen) return;
@@ -108,6 +109,13 @@ export default function Navbar({ currentPage }: NavbarProps) {
             })}
           </div>
 
+          <button
+            onClick={() => window.dispatchEvent(new Event("open-lead-modal"))}
+            className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium text-sm text-white bg-gradient-to-r from-blue-500 to-violet-600 hover:from-blue-400 hover:to-violet-500 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:scale-[1.03] active:scale-95 transition-all duration-200"
+          >
+            Get A Free Demo
+          </button>
+
           {/* MOBILE TOGGLE */}
           <button
             onClick={() => (mobileMenuOpen ? closeMenu() : openMenu())}
@@ -172,8 +180,8 @@ export default function Navbar({ currentPage }: NavbarProps) {
                       isClosing
                         ? "animate-[cascadeOut_0.25s_ease-in_forwards]"
                         : mobileMenuOpen
-                        ? "animate-[cascadeIn_0.4s_ease-out_forwards] opacity-0"
-                        : "opacity-0"
+                          ? "animate-[cascadeIn_0.4s_ease-out_forwards] opacity-0"
+                          : "opacity-0"
                     }`}
                   >
                     <div
@@ -227,6 +235,29 @@ export default function Navbar({ currentPage }: NavbarProps) {
                   </button>
                 );
               })}
+              {/* GET A DEMO — mobile drawer CTA */}
+              <div className="px-6 pt-4 pb-2">
+                <button
+                  onClick={() => {
+                    window.dispatchEvent(new Event("open-lead-modal"));
+                    closeMenu();
+                  }}
+                  style={{
+                    animationDelay: isClosing
+                      ? "0ms"
+                      : `${navItems.length * 100 + 150}ms`,
+                  }}
+                  className={`w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-full font-medium text-sm text-white bg-gradient-to-r from-blue-500 to-violet-600 hover:from-blue-400 hover:to-violet-500 shadow-lg shadow-blue-500/20 active:scale-95 transition-all duration-200 ${
+                    isClosing
+                      ? "animate-[cascadeOut_0.25s_ease-in_forwards]"
+                      : mobileMenuOpen
+                        ? "animate-[cascadeIn_0.4s_ease-out_forwards] opacity-0"
+                        : "opacity-0"
+                  }`}
+                >
+                  Get A Free Demo
+                </button>
+              </div>
             </div>
           </div>
         </div>

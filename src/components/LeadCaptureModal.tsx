@@ -58,7 +58,7 @@ const MARKETING_OPTIONS = [
 // Fallback delay if no "app:loaded" event ever fires (ms).
 const OPEN_DELAY_MS = 900;
 // Don't re-pester a visitor who already saw/dismissed it this session.
-const SESSION_KEY = "vedseem_modal_shown";
+// const SESSION_KEY = "vedseem_modal_shown";
 
 interface FormState {
   name: string;
@@ -82,22 +82,26 @@ export default function LeadCaptureModal() {
 
   // ---- open logic --------------------------------------------------
   useEffect(() => {
-    if (sessionStorage.getItem(SESSION_KEY)) return;
+    // if (sessionStorage.getItem(SESSION_KEY)) return;
 
     let timer: ReturnType<typeof setTimeout>;
 
     const open = () => {
-      if (sessionStorage.getItem(SESSION_KEY)) return;
+      // if (sessionStorage.getItem(SESSION_KEY)) return;
       setStep("choice");
     };
 
     // Preferred: your loader dispatches this when it finishes.
     window.addEventListener("app:loaded", open, { once: true });
+    window.addEventListener("open-lead-modal", open); // NEW: manual trigger
+
     // Fallback so the modal still appears if that event is never sent.
     timer = setTimeout(open, OPEN_DELAY_MS);
 
     return () => {
       window.removeEventListener("app:loaded", open);
+      window.removeEventListener("open-lead-modal", open); // NEW
+
       clearTimeout(timer);
     };
   }, []);
@@ -121,7 +125,7 @@ export default function LeadCaptureModal() {
 
   const close = () => {
     setLeaving(true);
-    sessionStorage.setItem(SESSION_KEY, "1");
+    // sessionStorage.setItem(SESSION_KEY, "1");
     setTimeout(() => {
       setStep("closed");
       setLeaving(false);
@@ -157,7 +161,7 @@ export default function LeadCaptureModal() {
     setTimeout(() => {
       setSubmitting(false);
       setStep("success");
-      sessionStorage.setItem(SESSION_KEY, "1");
+      // sessionStorage.setItem(SESSION_KEY, "1");
     }, 700);
   };
 
