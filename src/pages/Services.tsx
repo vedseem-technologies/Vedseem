@@ -227,7 +227,7 @@ export default function Services() {
               onClick={() => window.dispatchEvent(new Event("open-lead-modal"))}
               className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-medium text-md text-white bg-gradient-to-r from-blue-500 to-violet-600 hover:from-blue-400 hover:to-violet-500 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:scale-[1.03] active:scale-95 transition-all duration-200"
             >
-              Get A Free Demo
+              BOOK A FREE DEMO
             </button>
           </motion.div>
         </div>

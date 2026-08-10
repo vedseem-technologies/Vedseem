@@ -43,12 +43,11 @@ export default function Hero() {
         >
           <button
             onClick={() => window.dispatchEvent(new Event("open-lead-modal"))}
-            className="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/20 text-white font-semibold 
+            className="px-8 py-4 text-white bg-gradient-to-r from-blue-500 to-violet-600 hover:from-blue-400 hover:to-violet-500 font-semibold 
             rounded-lg hover:bg-white/10 transition-all duration-300 hover:scale-105"
           >
-            Get A Free Demo
+            BOOK A FREE DEMO
           </button>
-
         </div>
       </div>
 
