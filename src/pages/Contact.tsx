@@ -32,11 +32,21 @@ export default function Contact() {
     setError("");
 
     try {
-      if (!EMAIL_SERVICE_ID || !EMAIL_TEMPLATE_ID || !EMAIL_PUBLIC_KEY) {
-        throw new Error("Email service is not configured.");
+      if (!EMAIL_SERVICE_ID || !EMAIL_TEMPLATE_ID) {
+        console.error("❌ Missing EmailJS config:", {
+          serviceId: EMAIL_SERVICE_ID,
+          templateId: EMAIL_TEMPLATE_ID,
+          publicKey: EMAIL_PUBLIC_KEY,
+        });
+        throw new Error("Email service is not configured. Please contact support.");
       }
 
-      await emailjs.send(
+      console.log("📧 Sending contact form...", {
+        service: EMAIL_SERVICE_ID,
+        template: EMAIL_TEMPLATE_ID,
+      });
+
+      const result = await emailjs.send(
         EMAIL_SERVICE_ID,
         EMAIL_TEMPLATE_ID,
         {
@@ -49,14 +59,14 @@ export default function Contact() {
           reply_to: formData.email,
           to_name: "VedSeem Team",
         },
-        EMAIL_PUBLIC_KEY,
       );
 
+      console.log("✓ Email sent successfully:", result.status);
       setSubmitted(true);
       setFormData({ name: "", email: "", message: "" });
       setTimeout(() => setSubmitted(false), 6000);
     } catch (err) {
-      console.error("Contact form submission failed:", err);
+      console.error("❌ Contact form submission failed:", err);
       setError(
         err instanceof Error
           ? err.message

@@ -165,11 +165,21 @@ export default function LeadCaptureModal() {
     setSubmitError("");
 
     try {
-      if (!EMAIL_SERVICE_ID || !EMAIL_TEMPLATE_ID || !EMAIL_PUBLIC_KEY) {
-        throw new Error("Email service is not configured.");
+      if (!EMAIL_SERVICE_ID || !EMAIL_TEMPLATE_ID) {
+        console.error("❌ Missing EmailJS config:", {
+          serviceId: EMAIL_SERVICE_ID,
+          templateId: EMAIL_TEMPLATE_ID,
+          publicKey: EMAIL_PUBLIC_KEY,
+        });
+        throw new Error("Email service is not configured. Please contact support.");
       }
 
-      await emailjs.send(
+      console.log("📧 Sending lead capture form...", {
+        service: EMAIL_SERVICE_ID,
+        template: EMAIL_TEMPLATE_ID,
+      });
+
+      const result = await emailjs.send(
         EMAIL_SERVICE_ID,
         EMAIL_TEMPLATE_ID,
         {
@@ -182,15 +192,15 @@ export default function LeadCaptureModal() {
           reply_to: form.email,
           to_name: "VedSeem Team",
         },
-        EMAIL_PUBLIC_KEY,
       );
 
+      console.log("✓ Email sent successfully:", result.status);
       setForm(EMPTY_FORM);
       setErrors({});
       setStep("success");
       // sessionStorage.setItem(SESSION_KEY, "1");
     } catch (error) {
-      console.error("Lead submission failed:", error);
+      console.error("❌ Lead submission failed:", error);
       setSubmitError(
         error instanceof Error
           ? error.message
