@@ -166,18 +166,8 @@ export default function LeadCaptureModal() {
 
     try {
       if (!EMAIL_SERVICE_ID || !EMAIL_TEMPLATE_ID) {
-        console.error("❌ Missing EmailJS config:", {
-          serviceId: EMAIL_SERVICE_ID,
-          templateId: EMAIL_TEMPLATE_ID,
-          publicKey: EMAIL_PUBLIC_KEY,
-        });
         throw new Error("Email service is not configured. Please contact support.");
       }
-
-      console.log("📧 Sending lead capture form...", {
-        service: EMAIL_SERVICE_ID,
-        template: EMAIL_TEMPLATE_ID,
-      });
 
       const result = await emailjs.send(
         EMAIL_SERVICE_ID,
@@ -194,13 +184,11 @@ export default function LeadCaptureModal() {
         },
       );
 
-      console.log("✓ Email sent successfully:", result.status);
       setForm(EMPTY_FORM);
       setErrors({});
       setStep("success");
       // sessionStorage.setItem(SESSION_KEY, "1");
     } catch (error) {
-      console.error("❌ Lead submission failed:", error);
       setSubmitError(
         error instanceof Error
           ? error.message

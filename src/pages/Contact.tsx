@@ -33,18 +33,8 @@ export default function Contact() {
 
     try {
       if (!EMAIL_SERVICE_ID || !EMAIL_TEMPLATE_ID) {
-        console.error("❌ Missing EmailJS config:", {
-          serviceId: EMAIL_SERVICE_ID,
-          templateId: EMAIL_TEMPLATE_ID,
-          publicKey: EMAIL_PUBLIC_KEY,
-        });
         throw new Error("Email service is not configured. Please contact support.");
       }
-
-      console.log("📧 Sending contact form...", {
-        service: EMAIL_SERVICE_ID,
-        template: EMAIL_TEMPLATE_ID,
-      });
 
       const result = await emailjs.send(
         EMAIL_SERVICE_ID,
@@ -61,12 +51,10 @@ export default function Contact() {
         },
       );
 
-      console.log("✓ Email sent successfully:", result.status);
       setSubmitted(true);
       setFormData({ name: "", email: "", message: "" });
       setTimeout(() => setSubmitted(false), 6000);
     } catch (err) {
-      console.error("❌ Contact form submission failed:", err);
       setError(
         err instanceof Error
           ? err.message

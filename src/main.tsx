@@ -9,9 +9,6 @@ import './index.css';
 const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 if (PUBLIC_KEY) {
   emailjs.init(PUBLIC_KEY);
-  console.log('✓ EmailJS initialized');
-} else {
-  console.warn('⚠ EmailJS public key not found');
 }
 
 createRoot(document.getElementById('root')!).render(
