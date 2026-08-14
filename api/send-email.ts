@@ -19,7 +19,7 @@ export default async function handler(
 
   try {
     const data = await resend.emails.send({
-      from: "Vedseem Contact Form <onboarding@resend.dev>", // Update this if user has a custom domain
+      from: "Vedseem Contact Form <onboarding@resend.dev>",
       to: ["vedseem.contact@gmail.com"],
       subject: `New Contact Form Submission from ${name}`,
       html: `
