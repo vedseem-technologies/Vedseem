@@ -42,24 +42,11 @@ export default function Hero() {
           style={{ animationDelay: "0.4s" }}
         >
           <button
-            onClick={() => navigate("/services")}
-            className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold
-            rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 flex items-center gap-2 
-            hover:scale-105"
-          >
-            Explore Services
-            <ArrowRight
-              size={20}
-              className="group-hover:translate-x-1 transition-transform duration-300"
-            />
-          </button>
-
-          <button
-            onClick={() => navigate("/contact")}
-            className="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/20 text-white font-semibold 
+            onClick={() => window.dispatchEvent(new Event("open-lead-modal"))}
+            className="px-8 py-4 text-white bg-gradient-to-r from-blue-500 to-violet-600 hover:from-blue-400 hover:to-violet-500 font-semibold 
             rounded-lg hover:bg-white/10 transition-all duration-300 hover:scale-105"
           >
-            Contact Us
+            BOOK A FREE DEMO
           </button>
         </div>
       </div>

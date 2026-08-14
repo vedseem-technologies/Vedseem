@@ -302,3 +302,483 @@
 .preserve-3d {
   transform-style: preserve-3d;
 }
+
+/* ------------------------------------------------------------------
+   LeadCaptureModal styles
+   Import once globally, e.g. in src/index.css:
+       @import "./components/modal-animations.css";
+   ------------------------------------------------------------------ */
+
+:root {
+  --vs-bg: #05070d;
+  --vs-panel: #0a0e1a;
+  --vs-panel-2: #0d1220;
+  --vs-border: rgba(255, 255, 255, 0.08);
+  --vs-border-hover: rgba(120, 150, 255, 0.45);
+  --vs-text: #f5f6fa;
+  --vs-muted: #9aa3b2;
+  --vs-accent-1: #2f6bff;
+  --vs-accent-2: #8b5cf6;
+  --vs-gradient: linear-gradient(90deg, var(--vs-accent-1), var(--vs-accent-2));
+  --vs-radius: 16px;
+}
+
+/* ---------------- overlay ---------------- */
+
+.vs-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: radial-gradient(
+      circle at 50% 20%,
+      rgba(47, 107, 255, 0.12),
+      transparent 60%
+    ),
+    rgba(2, 4, 10, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.vs-fade-in {
+  animation: vsOverlayIn 0.32s ease forwards;
+}
+.vs-fade-out {
+  animation: vsOverlayOut 0.22s ease forwards;
+}
+
+@keyframes vsOverlayIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes vsOverlayOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* drifting star dots inside the overlay, echoes the hero background */
+.vs-modal-stars {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.vs-star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #6f8dff;
+  animation: vsTwinkle 3.6s ease-in-out infinite;
+}
+@keyframes vsTwinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.65;
+    transform: scale(1.6);
+  }
+}
+
+/* ---------------- panel ---------------- */
+
+.vs-modal-panel {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  max-height: 88vh;
+  overflow-y: auto;
+  background: linear-gradient(160deg, var(--vs-panel-2), var(--vs-panel) 60%);
+  border: 1px solid var(--vs-border);
+  border-radius: var(--vs-radius);
+  padding: 40px 32px 32px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.02),
+    0 0 60px rgba(60, 100, 255, 0.08);
+  color: var(--vs-text);
+}
+
+.vs-panel-in {
+  animation: vsPanelIn 0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.vs-panel-out {
+  animation: vsPanelOut 0.2s ease forwards;
+}
+
+@keyframes vsPanelIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes vsPanelOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+}
+
+.vs-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--vs-border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--vs-muted);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.vs-close-btn:hover {
+  color: #fff;
+  border-color: var(--vs-border-hover);
+  transform: rotate(90deg);
+}
+
+/* progress dots */
+.vs-progress {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 22px;
+}
+.vs-dot {
+  width: 22px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.12);
+  transition: background 0.3s ease;
+}
+.vs-dot-active {
+  background: var(--vs-gradient);
+}
+.vs-dot-done {
+  background: rgba(120, 150, 255, 0.55);
+}
+
+/* step transition */
+.vs-step-enter {
+  animation: vsStepIn 0.32s ease forwards;
+}
+@keyframes vsStepIn {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ---------------- typography ---------------- */
+
+.vs-title {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+  line-height: 1.25;
+}
+.vs-title-sm {
+  font-size: 22px;
+}
+.vs-subtitle {
+  color: var(--vs-muted);
+  font-size: 14.5px;
+  line-height: 1.5;
+  margin: 0 0 26px;
+}
+.vs-subtitle-eyebrow {
+  color: var(--vs-accent-2);
+  font-style: italic;
+  font-size: 13px;
+  margin: 0 0 22px;
+}
+
+/* ---------------- choice cards ---------------- */
+
+.vs-choice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+@media (max-width: 480px) {
+  .vs-choice-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.vs-choice-card {
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--vs-border);
+  border-radius: 12px;
+  padding: 18px 16px;
+  cursor: pointer;
+  color: var(--vs-text);
+  transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+}
+.vs-choice-card:hover,
+.vs-choice-card:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--vs-border-hover);
+  background: rgba(255, 255, 255, 0.045);
+  outline: none;
+}
+.vs-choice-card:hover .vs-choice-glow {
+  opacity: 1;
+}
+
+.vs-choice-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--vs-accent-1);
+  letter-spacing: 0.06em;
+}
+.vs-choice-heading {
+  font-size: 15px;
+  font-weight: 700;
+}
+.vs-choice-tags {
+  font-size: 12px;
+  color: var(--vs-muted);
+  line-height: 1.4;
+}
+.vs-choice-glow {
+  position: absolute;
+  inset: -40% -40% auto auto;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.35), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.vs-maybe-later {
+  display: block;
+  margin: 4px auto 0;
+  background: none;
+  border: none;
+  color: var(--vs-muted);
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.vs-maybe-later:hover {
+  color: #fff;
+}
+
+/* ---------------- form ---------------- */
+
+.vs-back-link {
+  background: none;
+  border: none;
+  color: var(--vs-muted);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 14px;
+  transition: color 0.2s ease;
+}
+.vs-back-link:hover {
+  color: #fff;
+}
+
+.vs-field {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.vs-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vs-text);
+}
+.vs-field input,
+.vs-field select {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--vs-border);
+  border-radius: 10px;
+  padding: 11px 13px;
+  font-size: 14px;
+  color: var(--vs-text);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.vs-field input::placeholder {
+  color: #5a6274;
+}
+.vs-field input:focus,
+.vs-field select:focus {
+  border-color: var(--vs-accent-1);
+  box-shadow: 0 0 0 3px rgba(47, 107, 255, 0.18);
+}
+.vs-field select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #9aa3b2 50%),
+    linear-gradient(135deg, #9aa3b2 50%, transparent 50%);
+  background-position: calc(100% - 18px) center, calc(100% - 13px) center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+.vs-field select option {
+  background: var(--vs-panel);
+  color: var(--vs-text);
+}
+.vs-error {
+  font-size: 12px;
+  color: #ff8a8a;
+}
+
+/* ---------------- CTA buttons ---------------- */
+
+.vs-cta {
+  width: 100%;
+  margin-top: 4px;
+  padding: 13px 20px;
+  border: none;
+  border-radius: 10px;
+  background: var(--vs-gradient);
+  background-size: 160% 100%;
+  background-position: 0% 0%;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14.5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  transition: background-position 0.4s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: 0 10px 30px rgba(47, 107, 255, 0.25);
+}
+.vs-cta:hover:not(:disabled) {
+  background-position: 100% 0%;
+  transform: translateY(-1px);
+}
+.vs-cta:active:not(:disabled) {
+  transform: translateY(0);
+}
+.vs-cta:disabled {
+  opacity: 0.8;
+  cursor: default;
+}
+.vs-cta-outline {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--vs-border-hover);
+  box-shadow: none;
+}
+.vs-cta-outline:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.vs-spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  animation: vsSpin 0.7s linear infinite;
+}
+@keyframes vsSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------------- success step ---------------- */
+
+.vs-success {
+  text-align: center;
+  padding-top: 6px;
+}
+.vs-check-circle {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 20px;
+}
+.vs-check-svg {
+  width: 100%;
+  height: 100%;
+}
+.vs-check-circle-path {
+  fill: none;
+  stroke-width: 2;
+}
+.vs-check-circle-path,
+.vs-check-mark-path {
+  stroke: var(--vs-accent-1);
+}
+.vs-check-circle-path {
+  stroke-dasharray: 151;
+  stroke-dashoffset: 151;
+  animation: vsDrawCircle 0.6s ease forwards;
+}
+.vs-check-mark-path {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+  animation: vsDrawCheck 0.4s ease 0.55s forwards;
+}
+@keyframes vsDrawCircle {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes vsDrawCheck {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .vs-modal-overlay,
+  .vs-modal-panel,
+  .vs-step-enter,
+  .vs-star,
+  .vs-check-circle-path,
+  .vs-check-mark-path,
+  .vs-cta {
+    animation: none !important;
+    transition: none !important;
+  }
+}
