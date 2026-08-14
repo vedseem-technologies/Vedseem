@@ -11,9 +11,9 @@ import {
   CheckCircle,
 } from "lucide-react";
 
-const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+const EMAIL_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAIL_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAIL_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -32,26 +32,35 @@ export default function Contact() {
     setError("");
 
     try {
+      if (!EMAIL_SERVICE_ID || !EMAIL_TEMPLATE_ID || !EMAIL_PUBLIC_KEY) {
+        throw new Error("Email service is not configured.");
+      }
+
       await emailjs.send(
-        SERVICE_ID,
-        TEMPLATE_ID,
+        EMAIL_SERVICE_ID,
+        EMAIL_TEMPLATE_ID,
         {
           from_name: formData.name,
           from_email: formData.email,
           message: formData.message,
-          to_name: "Vedseem Team",
+          phone: "Not provided",
+          service: "Contact Page",
+          source: "Contact Page",
           reply_to: formData.email,
+          to_name: "VedSeem Team",
         },
-        PUBLIC_KEY,
+        EMAIL_PUBLIC_KEY,
       );
 
       setSubmitted(true);
       setFormData({ name: "", email: "", message: "" });
       setTimeout(() => setSubmitted(false), 6000);
     } catch (err) {
-      console.error("EmailJS Error:", err);
+      console.error("Contact form submission failed:", err);
       setError(
-        "Something went wrong. Please reach out to us directly via email or phone.",
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please reach out to us directly via email or phone.",
       );
     } finally {
       setIsSubmitting(false);

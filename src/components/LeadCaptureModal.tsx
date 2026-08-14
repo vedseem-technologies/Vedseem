@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
 
 /**
  * LeadCaptureModal
@@ -68,6 +69,9 @@ interface FormState {
 }
 
 const EMPTY_FORM: FormState = { name: "", phone: "", email: "", need: "" };
+const EMAIL_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAIL_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAIL_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 export default function LeadCaptureModal() {
   const [step, setStep] = useState<Step>("closed");
@@ -77,6 +81,7 @@ export default function LeadCaptureModal() {
     Partial<Record<keyof FormState, string>>
   >({});
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const [leaving, setLeaving] = useState(false); // for close animation
   const firstFieldRef = useRef<HTMLInputElement>(null);
 
@@ -152,17 +157,48 @@ export default function LeadCaptureModal() {
     return Object.keys(next).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
+
     setSubmitting(true);
-    // Wire this up to your actual lead endpoint / CRM.
-    // e.g. await fetch("/api/leads", { method: "POST", body: JSON.stringify({ ...form, service }) })
-    setTimeout(() => {
-      setSubmitting(false);
+    setSubmitError("");
+
+    try {
+      if (!EMAIL_SERVICE_ID || !EMAIL_TEMPLATE_ID || !EMAIL_PUBLIC_KEY) {
+        throw new Error("Email service is not configured.");
+      }
+
+      await emailjs.send(
+        EMAIL_SERVICE_ID,
+        EMAIL_TEMPLATE_ID,
+        {
+          from_name: form.name,
+          from_email: form.email,
+          phone: form.phone,
+          message: form.need,
+          service: service === "marketing" ? "Digital Marketing" : "Website & App Development",
+          source: "Lead Capture Modal",
+          reply_to: form.email,
+          to_name: "VedSeem Team",
+        },
+        EMAIL_PUBLIC_KEY,
+      );
+
+      setForm(EMPTY_FORM);
+      setErrors({});
       setStep("success");
       // sessionStorage.setItem(SESSION_KEY, "1");
-    }, 700);
+    } catch (error) {
+      console.error("Lead submission failed:", error);
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong while sending your request.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const goBack = () => {
@@ -346,6 +382,8 @@ export default function LeadCaptureModal() {
                 "Get a Callback"
               )}
             </button>
+
+            {submitError && <p className="vs-error vs-error-inline">{submitError}</p>}
           </form>
         )}
 
